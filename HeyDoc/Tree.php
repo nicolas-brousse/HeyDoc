@@ -4,9 +4,7 @@ namespace HeydDoc;
 
 class Tree
 {
-    protected $filename;
-    protected $parent;
-    protected $content;
+    protected $pages;
 
     public function __construct()
     {
