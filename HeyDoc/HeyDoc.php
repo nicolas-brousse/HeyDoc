@@ -1,6 +1,6 @@
 <?php
 
-namespace Sami;
+namespace HeydDoc;
 
 class HeydDoc
 {
