@@ -2,8 +2,6 @@
 
 namespace HeydDoc;
 
-use dflydev\markdown\MarkdownExtraParser;
-
 use Symfony\Component\Finder\SplFileInfo;
 
 class Page

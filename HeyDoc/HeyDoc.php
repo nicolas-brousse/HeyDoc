@@ -4,9 +4,5 @@ namespace HeydDoc;
 
 class HeydDoc
 {
-
-    public function run()
-    {
-        // TODO
-    }
+    const VERSION = '0.0.1-beta';
 }
