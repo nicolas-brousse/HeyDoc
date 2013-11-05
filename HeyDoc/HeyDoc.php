@@ -1,8 +1,8 @@
 <?php
 
-namespace HeydDoc;
+namespace HeyDoc;
 
-class HeydDoc
+class HeyDoc
 {
     const VERSION = '0.0.1-beta';
 }

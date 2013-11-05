@@ -1,8 +1,8 @@
 <?php
 
-namespace HeydDoc;
+namespace HeyDoc;
 
-class HeydDocTest extends \PHPUnit_Framework_TestCase
+class HeyDocTest extends \PHPUnit_Framework_TestCase
 {
 
     public function testRun()
