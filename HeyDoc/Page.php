@@ -6,9 +6,13 @@ use Symfony\Component\Finder\SplFileInfo;
 
 class Page
 {
+    const FORMAT_MARKDOWN = 'markdown';
+    const FORMAT_HTML     = 'html';
+
     protected $file;
     protected $tree;
     protected $content;
+    protected $format;
 
     protected $headers = array();
 
@@ -43,6 +47,19 @@ class Page
     public function getUrl()
     {
         return $this->tree->getUrl() . '/' . $this->getName();
+    }
+
+    public function getFormat()
+    {
+        switch ($this->file->getExtension()) {
+            case 'md':
+            case 'markdown':
+                return self::FORMAT_MARKDOWN;
+
+            case 'html':
+            case 'htm':
+                return self::FORMAT_HTML;
+        }
     }
 
     public function refresh()
