@@ -15,7 +15,10 @@ class Tree
 
     public function getTree()
     {
-
+        // $finder->files()
+        //     ->in($docsDir)
+        //     ->name('*.md')->name('*.html')
+        // ;
     }
 
     public function getParent()

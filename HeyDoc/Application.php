@@ -6,13 +6,22 @@ use dflydev\markdown\MarkdownExtraParser;
 
 use HeydDoc\Tree;
 
+use Symfony\Component\Yaml\Exception\ParseException;
+use Symfony\Component\Yaml\Yaml;
+
 class Application extends \Pimple
 {
     public function __construct($appBaseDir)
     {
         $sc = $this;
 
-        $this['app_basedir'] = realpath($appBaseDir);
+        $this['web_dir'] = realpath($appBaseDir);
+
+        $this['configs'] = $this->share(function () use ($sc) {
+            $settingsFilename = realpath($sc['web_dir'] . '/../docs/settings.yml');
+            // TODO return exception if file does not exists
+            return Yaml::parse(file_get_contents($settingsFilename));
+        });
 
         $this['markdown_parser'] = $this->share(function () use ($sc) {
             return new MarkdownExtraParser();
@@ -44,14 +53,17 @@ class Application extends \Pimple
         /**
          * Default configs
          */
-        $this['theme']         = 'enhanced';
-        $this['title']         = 'API';
-        $this['template_dirs'] = array();
-        $this['build_dir']     = getcwd().'/build';
-        $this['cache_dir']     = getcwd().'/cache';
+        // $defaults = array(
+        //     'theme'         => 'enhanced',
+        //     'title'         => 'HeyDoc',
+        //     'template_dirs' => array(),
+        //     'cache_dir'     => getcwd() . '/cache',
+        // );
+        // $this['configs'] = array_replace($defaults, $this['configs']);
     }
 
     public function run()
     {
+        // TODO
     }
 }
