@@ -46,7 +46,7 @@ class Tree
 
     public function getName()
     {
-        return basename($this->directory);
+        return $this->parent ? basename($this->directory) : null;
     }
 
     public function getUrl()

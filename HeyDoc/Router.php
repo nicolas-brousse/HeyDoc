@@ -15,9 +15,7 @@ class Router
 
     public function process()
     {
-        // $paths = explode('/', ltrim($this->container->get('request')->getPath(), '/'));
-        $paths = explode('/', ltrim($this->getRequestPath(), '/'));
-
+        $paths = explode('/', trim($this->container->get('request')->getPath(), '/'));
         return $this->findPage($this->container->get('tree'), $paths);
     }
 
@@ -51,10 +49,5 @@ class Router
         }
 
         throw new NotFoundException(sprintf('Path "/%s" does not exist', implode('/', $paths)));
-    }
-
-    protected function getRequestPath()
-    {
-        return str_replace($this->container->get('request')->getBaseUrl(), '', $this->container->get('request')->getRequestUri());
     }
 }
