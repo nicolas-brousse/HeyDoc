@@ -14,12 +14,15 @@ class Page
     protected $content;
     protected $format;
 
-    protected $headers = array();
+    protected $headers;
 
     public function __construct(SplFileInfo $file, Tree $tree)
     {
         $this->file = $file;
         $this->tree = $tree;
+
+        $this->headers = new \ArrayObject();
+        $this->content = '';
 
         $this->load();
     }
@@ -64,6 +67,9 @@ class Page
 
     public function refresh()
     {
+        $this->headers = new \ArrayObject();
+        $this->content = '';
+
         $this->load();
     }
 
@@ -71,8 +77,7 @@ class Page
     {
         $hasHeader = false;
         $isHeader  = false;
-
-        $contents = array();
+        $contents  = new \ArrayObject();
 
         foreach ($this->file->openFile() as $i=>$line)
         {
@@ -94,17 +99,17 @@ class Page
                 $d = array_map('trim', explode(':', $line));
 
                 if (count($d) != 2) {
-                    // TODO
-                    throw new Exception("Error Processing Request", 1);
+                    // TODO create an explain Exception
+                    throw new \Exception(sprintf('Headers format invalid for "%s" file', $this->file->getPathname()));
                 }
 
-                $this->headers[mb_strtolower($d[0])] = $d[1];
+                $this->headers->offsetSet(mb_strtolower($d[0]), $d[1]);
             }
             else {
-                $contents[] = $line;
+                $contents->append($line);
             }
         }
 
-        $this->content = implode("\n", $contents);
+        $this->content = implode("\n", $contents->getArrayCopy());
     }
 }
