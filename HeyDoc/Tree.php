@@ -16,13 +16,16 @@ class Tree
         $this->directory = $directory;
         $this->parent    = $parent;
 
-        $this->getTree();
+        $this->pages     = new \ArrayObject();
+        $this->children  = new \ArrayObject();
+
+        $this->load();
     }
 
-    public function getTree()
+    public function load()
     {
         $finder = new Finder();
-        $dirs = $finder->directories()
+        $dirs  = $finder->directories()
             ->in($this->directory)
             ->depth('0')
         ;
@@ -31,7 +34,7 @@ class Tree
         }
 
         $finder = new Finder();
-        $files = $finder->files()
+        $files  = $finder->files()
             ->in($this->directory)
             ->depth('0')
             ->name('*.md')->name('*.html')
@@ -64,7 +67,7 @@ class Tree
 
     public function addChild(Tree $tree)
     {
-        $this->children[] = $tree;
+        $this->children->append($tree);
     }
 
     public function getPages()
@@ -74,6 +77,6 @@ class Tree
 
     public function addPage(Page $page)
     {
-        $this->pages[] = $page;
+        $this->pages->append($page);
     }
 }
