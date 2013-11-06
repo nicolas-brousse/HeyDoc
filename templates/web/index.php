@@ -1,7 +1,7 @@
 <?php
 
 use HeyDoc\Application;
-use Symfony\Component\HttpFoundation\Request;
+use HeyDoc\Request;
 
 require_once realpath(__DIR__.'/../vendor/autoload.php');
 
