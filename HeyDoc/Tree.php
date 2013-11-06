@@ -41,10 +41,15 @@ class Tree
         }
     }
 
+    public function getName()
+    {
+        return basename($this->directory);
+    }
+
     public function getUrl()
     {
         $parent = $this->getParent() ? $this->getParent()->getUrl() . '/' : '';
-        return $parent . basename($this->directory);
+        return $parent . $this->getName();
     }
 
     public function getParent()
