@@ -6,13 +6,24 @@ use HeyDoc\Exception\NotFoundException;
 
 class Router
 {
+    /** @var Container  $container  The container **/
     protected $container;
 
+    /**
+     *
+     *
+     * @param Container  $container  The container
+     */
     public function __construct(Container $container)
     {
         $this->container = $container;
     }
 
+    /**
+     * Use the request to found the called page and return it
+     *
+     * @return Page  $page  The page found
+     */
     public function process()
     {
         $paths = explode('/', trim($this->container->get('request')->getPath(), '/'));
@@ -20,6 +31,13 @@ class Router
     }
 
     /**
+     *
+     *
+     * @param Tree   $tree   Tree where seek
+     * @param array  $paths  Exploded path
+     *
+     * @return Page  The found page
+     *
      * @throws NotFoundException
      */
     private function findPage(Tree $tree, array $paths)
