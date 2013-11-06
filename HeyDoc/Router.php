@@ -50,7 +50,7 @@ class Router
             }
         }
 
-        throw new NotFoundException(sprintf("Path %s does not exist", implode('/', $paths)));
+        throw new NotFoundException(sprintf('Path "/%s" does not exist', implode('/', $paths)));
     }
 
     protected function getRequestPath()
