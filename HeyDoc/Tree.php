@@ -22,28 +22,6 @@ class Tree
         $this->load();
     }
 
-    public function load()
-    {
-        $finder = new Finder();
-        $dirs  = $finder->directories()
-            ->in($this->directory)
-            ->depth('0')
-        ;
-        foreach ($dirs as $dir) {
-            $this->addChild(new Tree($dir->getPathname(), $this));
-        }
-
-        $finder = new Finder();
-        $files  = $finder->files()
-            ->in($this->directory)
-            ->depth('0')
-            ->name('*.md')->name('*.html')
-        ;
-        foreach ($files as $file) {
-            $this->addPage(new Page($file, $this));
-        }
-    }
-
     public function getName()
     {
         return $this->parent ? basename($this->directory) : null;
@@ -78,5 +56,35 @@ class Tree
     public function addPage(Page $page)
     {
         $this->pages->append($page);
+    }
+
+    public function refresh()
+    {
+        $this->pages     = new \ArrayObject();
+        $this->children  = new \ArrayObject();
+
+        $this->load();
+    }
+
+    protected function load()
+    {
+        $finder = new Finder();
+        $dirs  = $finder->directories()
+            ->in($this->directory)
+            ->depth('0')
+        ;
+        foreach ($dirs as $dir) {
+            $this->addChild(new Tree($dir->getPathname(), $this));
+        }
+
+        $finder = new Finder();
+        $files  = $finder->files()
+            ->in($this->directory)
+            ->depth('0')
+            ->name('*.md')->name('*.html')
+        ;
+        foreach ($files as $file) {
+            $this->addPage(new Page($file, $this));
+        }
     }
 }
