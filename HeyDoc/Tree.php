@@ -69,7 +69,7 @@ class Tree
     protected function load()
     {
         $finder = new Finder();
-        $dirs  = $finder->directories()
+        $dirs   = $finder->directories()
             ->in($this->directory)
             ->depth('0')
         ;
