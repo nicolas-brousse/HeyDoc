@@ -18,7 +18,7 @@ class Application
     public function __construct(Request $request)
     {
         $this->container = new Container();
-        $this->container['request'] = $request;
+        $this->container->setRequest($request);
         $this->container->load();
     }
 

@@ -9,11 +9,29 @@ use Symfony\Component\Yaml\Yaml;
 
 class Container extends \Pimple
 {
+    public function __construct()
+    {
+        if (file_exists($a = realpath(__DIR__.'/../../../../web'))) {
+            $this['web_dir'] = $a;
+        } else {
+            $this['web_dir'] = realpath(__DIR__.'/../web');
+        }
+    }
+
+    public function setRequest(Request $request)
+    {
+        $this['request'] = $request;
+        $this['web_dir'] = realpath(dirname($this['request']->server->get('SCRIPT_FILENAME')));
+    }
+
+    public function setWebDir($dir) {
+        $this['web_dir'] = realpath($dir);
+    }
+
     public function load()
     {
         $c = $this;
 
-        $this['web_dir']  = realpath(dirname($c['request']->server->get('SCRIPT_FILENAME')));
         $this['root_dir'] = realpath($c['web_dir'] . '/../');
         $this['docs_dir'] = realpath($c['root_dir'] . '/docs/');
 
