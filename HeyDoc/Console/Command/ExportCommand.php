@@ -61,8 +61,9 @@ EOF
 
     private function exportTree(Tree $tree)
     {
+        $this->createEmptyDir($tree->getUrl());
+
         foreach ($tree->getChildren() as $child) {
-            $this->createEmptyDir($child->getUrl());
             $this->exportTree($child);
         }
 
@@ -76,7 +77,6 @@ EOF
         // call renderer to generate content
         $content = $this->container->get('renderer')->render($page);
 
-        // create file with content. But if exist (Filesystem->exists) prompt for replace
         $filename = $this->exportDir . $page->getUrl();
         if (basename($filename) !== 'index') {
             $this->createEmptyDir($page->getUrl());
@@ -84,6 +84,7 @@ EOF
         }
         $filename .= '.html';
 
+        // TODO: If file exist prompt for replace
         if (! $this->force && $this->fs->exists($filename)) {
             $this->output->writeln(sprintf('>> page already exists <fg=blue>%s</>', $filename));
             return;
