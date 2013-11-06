@@ -6,7 +6,6 @@ use dflydev\markdown\MarkdownExtraParser;
 
 use HeyDoc\Exception\NotFoundException;
 
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Yaml\Exception\ParseException;
 use Symfony\Component\Yaml\Yaml;
 
