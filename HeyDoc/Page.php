@@ -30,7 +30,12 @@ class Page
 
     public function getTitle()
     {
-        return array_key_exists('title', $this->headers) ? $this->headers['title'] : ucfirst($this->getName());
+        return $this->headers->offsetExists('title') ? $this->headers->offsetGet('title') : ucfirst($this->getName());
+    }
+
+    public function getLayout()
+    {
+        return $this->headers->offsetExists('layout') ? $this->headers->offsetGet('layout') : null;
     }
 
     public function getContent()
