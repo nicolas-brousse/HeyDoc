@@ -13,6 +13,7 @@ class Page
     protected $tree;
     protected $content;
     protected $format;
+    protected $updatedAt;
 
     protected $headers;
 
@@ -40,6 +41,14 @@ class Page
     public function getName()
     {
         return $this->file->getBasename('.' . $this->file->getExtension());
+    }
+
+    public function getUpdatedAt()
+    {
+        if (! $this->updatedAt) {
+            $this->updatedAt = new DateTime($this->file->getMTime());
+        }
+        return $this->updatedAt;
     }
 
     public function getHeaders()
