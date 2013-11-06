@@ -2,26 +2,97 @@
 
 namespace HeyDoc\Console\Command;
 
-use Symfony\Component\Console\Command\Command;
+use HeyDoc\Page;
+use HeyDoc\Tree;
+
+use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 
 class ExportCommand extends Command
 {
+    private $exportDir = '_export';
+    private $force     = false;
+
     protected function configure()
     {
         $this
             ->setName('export')
             ->setDescription('Export project')
+            ->addOption('force', 'f', InputOption::VALUE_NONE, 'Force page generation if file already exists')
+            ->addArgument('export_dir', InputArgument::OPTIONAL, 'Directory to export pages')
             ->setHelp(<<<EOF
+The <info>%command.name%</info> command export page in html format
+into _export folder by default:
 
+    <info>php %command.full_name%</info>
+
+The <comment>export_dir</comment> argument permit to precise
+a directory to export:
+
+    <info>php %command.full_name% /path/to/export</info>
+
+The <comment>--force</comment> option force to write page
+if already exists:
+
+    <info>php %command.full_name% --force</info>
 EOF
             );
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        // TODO
+        if ($input->getOption('force')) {
+            $this->force = true;
+        }
+
+        if ($a = $input->getArgument('export_dir')) {
+            $this->exportDir = $a;
+        }
+        $this->exportDir = $this->currentDir = getcwd() . DIRECTORY_SEPARATOR . $this->exportDir;
+
+        $output->writeln(sprintf('Export pages in <fg=yellow>%s</>', $this->exportDir));
+        $output->writeln('');
+
+        $tree = $this->container->get('tree');
+        $this->exportTree($tree);
+    }
+
+    private function exportTree(Tree $tree)
+    {
+        foreach ($tree->getChildren() as $child) {
+            $this->createEmptyDir($child->getUrl());
+            $this->exportTree($child);
+        }
+
+        foreach ($tree->getPages() as $page) {
+            $this->exportPage($page);
+        }
+    }
+
+    private function exportPage(Page $page)
+    {
+        // call renderer to generate content
+        $content = $this->container->get('renderer')->render($page);
+
+        // create file with content. But if exist (Filesystem->exists) prompt for replace
+        $filename = $this->exportDir . $page->getUrl();
+        if (basename($filename) !== 'index') {
+            $this->createEmptyDir($page->getUrl());
+            $filename .= '/index';
+        }
+        $filename .= '.html';
+
+        if (! $this->force && $this->fs->exists($filename)) {
+            $this->output->writeln(sprintf('>> page already exists <fg=blue>%s</>', $filename));
+            return;
+        }
+
+        $this->fs->touch($filename);
+        $file = new \SplFileObject($filename, 'w');
+        $file->fwrite($content);
+
+        $this->output->writeln(sprintf('>> create page <fg=green>%s</>', $filename));
     }
 }
