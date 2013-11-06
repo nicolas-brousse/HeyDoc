@@ -4,6 +4,10 @@ namespace HeyDoc;
 
 use dflydev\markdown\MarkdownExtraParser;
 
+use HeyDoc\Renderer\Renderer;
+use HeyDoc\Renderer\ThemeCollection;
+use HeyDoc\Renderer\TwigExtension;
+
 use Symfony\Component\Yaml\Exception\ParseException;
 use Symfony\Component\Yaml\Yaml;
 
@@ -85,12 +89,14 @@ class Container extends \Pimple
         });
 
         $this['twig'] = $this->share(function () use ($c) {
-            $twig = new \Twig_Environment(new \Twig_Loader_Filesystem(array('/')), array(
+            $loader = new \Twig_Loader_Filesystem(array('/'));
+            $twig   = new \Twig_Environment($loader, array(
                 'strict_variables' => true,
                 'debug'            => $c->get('configs')->get('debug'),
                 'auto_reload'      => true,
                 'cache'            => false,
             ));
+
             $twig->addExtension(new TwigExtension());
 
             return $twig;
