@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+
+    <title>{{ page.title }}</title>
+    {% if site.description is defined %}<meta name="description" content="{{ site.description }}">{% endif -%}
+    {% if site.author is defined %}<meta name="author" content="{{ site.author }}">{% endif -%}
+    <meta name="generator" content="HeyDoc">
+
+    <style>
+    {% include "app.css" %}
+    </style>
+</head>
+
+<body>
+    <h1>{{ page.title }}</h1>
+
+    <div class="content">
+        {{ content|raw }}
+    </div>
+</body>
+</html>
