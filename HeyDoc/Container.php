@@ -54,7 +54,7 @@ class Container extends \Pimple
         $this['configs'] = $this->share(function () use ($c) {
             $settingsFilename = realpath($c['docs_dir'] . '/settings.yml');
             // TODO return exception if file does not exists
-            return Yaml::parse(file_get_contents($settingsFilename));
+            return new Config(Yaml::parse($settingsFilename));
         });
 
         $this['markdown_parser'] = $this->share(function () use ($c) {
@@ -78,16 +78,16 @@ class Container extends \Pimple
         });
 
         $this['themes'] = $this->share(function () use ($c) {
-            $templates = $c['template_dirs'];
-            $templates[] = __DIR__ . '/Resources/themes';
+            $themes   = $c->get('configs')->get('theme_dirs');
+            $themes[] = __DIR__ . '/Resources/themes';
 
-            return new ThemeSet($templates);
+            return new ThemeCollection($themes);
         });
 
         $this['twig'] = $this->share(function () use ($c) {
             $twig = new \Twig_Environment(new \Twig_Loader_Filesystem(array('/')), array(
                 'strict_variables' => true,
-                'debug'            => true,
+                'debug'            => $c->get('configs')->get('debug'),
                 'auto_reload'      => true,
                 'cache'            => false,
             ));
@@ -95,17 +95,6 @@ class Container extends \Pimple
 
             return $twig;
         });
-
-        /**
-         * Default configs
-         */
-        // $defaults = array(
-        //     'theme'         => 'enhanced',
-        //     'title'         => 'HeyDoc',
-        //     'template_dirs' => array(),
-        //     'cache_dir'     => getcwd() . '/cache',
-        // );
-        // $this['configs'] = array_replace($defaults, $this['configs']);
     }
 
     /**
