@@ -15,6 +15,7 @@ class Command extends BaseCommand
     protected $container;
     protected $input;
     protected $output;
+    protected $dialog;
 
     protected $currentDir;
 
@@ -30,6 +31,7 @@ class Command extends BaseCommand
     {
         $this->input  = $input;
         $this->output = $output;
+        $this->dialog = $this->getHelperSet()->get('dialog');
 
         $this->currentDir = getcwd();
 

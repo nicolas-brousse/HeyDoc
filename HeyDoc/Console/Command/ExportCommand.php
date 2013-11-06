@@ -77,6 +77,7 @@ EOF
         // call renderer to generate content
         $content = $this->container->get('renderer')->render($page);
 
+        // Build filename
         $filename = $this->exportDir . $page->getUrl();
         if (basename($filename) !== 'index') {
             $this->createEmptyDir($page->getUrl());
@@ -85,9 +86,12 @@ EOF
         $filename .= '.html';
 
         // TODO: If file exist prompt for replace
-        if (! $this->force && $this->fs->exists($filename)) {
+        if (! $this->force && $this->fs->exists($filename))
+        {
             $this->output->writeln(sprintf('>> page already exists <fg=blue>%s</>', $filename));
-            return;
+            if (! $this->dialog->askConfirmation($this->output, '  <question>Do you want to overwrite it?</question>', false)) {
+                return;
+            }
         }
 
         $this->fs->touch($filename);
