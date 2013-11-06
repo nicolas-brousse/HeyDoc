@@ -10,7 +10,11 @@ class Renderer
     /** @var Container  $container  The container **/
     protected $container;
 
+    /** @var null|Theme  $theme  Theme **/
     protected $theme;
+
+    /** @var null|Page  $page  Page **/
+    protected $page;
 
     /**
      *
@@ -31,18 +35,36 @@ class Renderer
      */
     public function render(Page $page)
     {
+        $this->page = $page;
+
         $this->loadTheme();
 
-        // TODO: Parse page vars like {{ site.baseUrl }}? Use twig?
-        $content = $this->container->get('parser')->parse($page);
+        return $this->container->get('twig')->render(
+            $this->getViewName(),
+            array(
+                'config'  => $this->container->get('config'),
+                'page'    => $page,
+                'content' => $this->getPageContent(),
+            )
+        );
+    }
 
-        $viewName = $page->getLayout() ? $page->getLayout() : 'default';
+    private function getPageContent()
+    {
+        $twig   = new \Twig_Environment(new \Twig_Loader_String());
 
-        return $this->container->get('twig')->render($viewName . '.twig', array(
-            'config'  => $this->container->get('config'),
-            'page'    => $page,
-            'content' => $content,
-        ));
+        return $twig->render(
+            $this->container->get('parser')->parse($this->page),
+            array(
+                'config'  => $this->container->get('config'),
+                'page'    => $this->page,
+            )
+        );
+    }
+
+    private function getViewName()
+    {
+        return ($this->page->getLayout() ? $this->page->getLayout() : 'default') . '.twig';
     }
 
     private function loadTheme()
