@@ -9,11 +9,11 @@ use Symfony\Component\Yaml\Yaml;
 
 class Container extends \Pimple
 {
-    public function __construct($appBaseDir)
+    public function load()
     {
         $c = $this;
 
-        $this['web_dir']  = realpath($appBaseDir);
+        $this['web_dir']  = realpath(dirname($c['request']->server->get('SCRIPT_FILENAME')));
         $this['root_dir'] = realpath($c['web_dir'] . '/../');
         $this['docs_dir'] = realpath($c['root_dir'] . '/docs/');
 
@@ -31,6 +31,10 @@ class Container extends \Pimple
             return new Parsor($c);
         });
 
+        $this['renderer'] = $this->share(function () use ($c) {
+            return new Renderer($c);
+        });
+
         $this['tree'] = $this->share(function () use ($c) {
             return new Tree($c['docs_dir']);
         });
@@ -41,7 +45,7 @@ class Container extends \Pimple
 
         $this['themes'] = $this->share(function () use ($c) {
             $templates = $c['template_dirs'];
-            $templates[] = __DIR__.'/Resources/themes';
+            $templates[] = __DIR__ . '/Resources/themes';
 
             return new ThemeSet($templates);
         });
@@ -68,6 +72,11 @@ class Container extends \Pimple
         //     'cache_dir'     => getcwd() . '/cache',
         // );
         // $this['configs'] = array_replace($defaults, $this['configs']);
+    }
+
+    public function has($name)
+    {
+        return array_key_exists($name, $this);
     }
 
     public function get($name)

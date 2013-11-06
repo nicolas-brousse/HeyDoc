@@ -16,21 +16,21 @@ class Application
 
     protected $page;
 
-    public function __construct($appBaseDir, Request $request)
+    public function __construct(Request $request)
     {
-        $this->container = new Container($appBaseDir);
+        $this->container = new Container();
         $this->container['request'] = $request;
+        $this->container->load();
     }
 
     public function run()
     {
         try {
             $this->prepare();
-            $this->render();
+            $this->process();
         }
         catch (NotFoundException $e) {
-            $response = new Response($e->getMessage(), 404);
-            $response->send();
+            Response::createAndSend($e->getMessage(), 404);
         }
     }
 
@@ -39,10 +39,12 @@ class Application
         $this->page = $this->container->get('router')->process();
     }
 
-    protected function render()
+    protected function process()
     {
-
         $response = new Response();
+        $response->setBody(
+            $this->container->get('renderer')->render($this->page)
+        );
         $response->send();
     }
 }
