@@ -3,7 +3,7 @@
 
 ## Installation
 
-Crete `composer.json` file:
+Create `composer.json` file:
 
 ```json
 {
