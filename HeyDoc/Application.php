@@ -11,10 +11,15 @@ use Symfony\Component\Yaml\Yaml;
 
 class Application
 {
+    /** @var  **/
     protected $container;
 
+    /** @var  **/
     protected $page;
 
+    /**
+     *
+     */
     public function __construct(Request $request)
     {
         $this->container = new Container();
@@ -22,6 +27,9 @@ class Application
         $this->container->load();
     }
 
+    /**
+     *
+     */
     public function run()
     {
         try {
@@ -33,11 +41,17 @@ class Application
         }
     }
 
+    /**
+     *
+     */
     protected function prepare()
     {
         $this->page = $this->container->get('router')->process();
     }
 
+    /**
+     *
+     */
     protected function process()
     {
         $response = new Response();

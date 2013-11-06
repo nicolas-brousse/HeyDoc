@@ -9,6 +9,9 @@ use Symfony\Component\Yaml\Yaml;
 
 class Container extends \Pimple
 {
+    /**
+     *
+     */
     public function __construct()
     {
         if (file_exists($a = realpath(__DIR__.'/../../../../web'))) {
@@ -18,16 +21,29 @@ class Container extends \Pimple
         }
     }
 
+    /**
+     *
+     *
+     * @param Request  $request  The Request
+     */
     public function setRequest(Request $request)
     {
         $this['request'] = $request;
         $this['web_dir'] = realpath(dirname($this['request']->server->get('SCRIPT_FILENAME')));
     }
 
+    /**
+     *
+     *
+     * @param string  $dir  The web directory path
+     */
     public function setWebDir($dir) {
         $this['web_dir'] = realpath($dir);
     }
 
+    /**
+     *
+     */
     public function load()
     {
         $c = $this;
@@ -92,11 +108,25 @@ class Container extends \Pimple
         // $this['configs'] = array_replace($defaults, $this['configs']);
     }
 
+    /**
+     *
+     *
+     * @param string  $name  Name of the service to check
+     *
+     * @return boolean
+     */
     public function has($name)
     {
         return array_key_exists($name, $this);
     }
 
+    /**
+     *
+     *
+     * @param string  $name  Name of the service to called
+     *
+     * @return mixed
+     */
     public function get($name)
     {
         return $this[$name];

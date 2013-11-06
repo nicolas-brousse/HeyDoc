@@ -20,6 +20,12 @@ class Command extends BaseCommand
 
     protected $fs;
 
+    /**
+     *
+     *
+     * @param InputInterface   $input
+     * @param OutputInterface  $output
+     */
     protected function initialize(InputInterface $input, OutputInterface $output)
     {
         $this->input  = $input;
@@ -34,6 +40,11 @@ class Command extends BaseCommand
         $this->container->load();
     }
 
+    /**
+     *
+     *
+     * @param string  $dirName  Directory to create
+     */
     protected function createEmptyDir($dirName)
     {
         $dirToCreate = $this->currentDir . DIRECTORY_SEPARATOR . $dirName;
