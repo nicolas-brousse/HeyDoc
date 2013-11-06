@@ -2,3 +2,4 @@ title: HeyDoc
 date_modified: true
 google_analytics: "UA-12345678-01"
 debug: false
+theme_dirs: []
