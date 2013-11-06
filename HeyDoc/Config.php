@@ -4,10 +4,11 @@ namespace HeyDoc;
 
 class Config
 {
+    /** @var array $config **/
     protected $config;
 
     /**
-     *
+     * Construct Config from array
      *
      * @param array  $config  The container
      */
@@ -16,11 +17,25 @@ class Config
         $this->config = new \ArrayObject(array_replace($this->getDefaults(), $config));
     }
 
+    /**
+     * Ask if config contain key
+     *
+     * @param string  $key
+     *
+     * @return boolean
+     */
     public function has($key)
     {
         return $this->config->offsetExists($key);
     }
 
+    /**
+     * Get a config value with key
+     *
+     * @param string  $key
+     *
+     * @return mixed
+     */
     public function get($key)
     {
         if (! $this->has($key)) {
@@ -29,6 +44,11 @@ class Config
         return $this->config->offsetGet($key);
     }
 
+    /**
+     * Get defaults configs
+     *
+     * @return array
+     */
     public function getDefaults()
     {
         return array(
@@ -40,6 +60,13 @@ class Config
         );
     }
 
+    /**
+     * Magic call method
+     *
+     * @param string  $name  Method name
+     *
+     * @return mixed
+     */
     public function __call($name, $arguments)
     {
         return $this->get($name);

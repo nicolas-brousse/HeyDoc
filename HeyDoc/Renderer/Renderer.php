@@ -17,7 +17,7 @@ class Renderer
     protected $page;
 
     /**
-     *
+     * Construct the Renderer with container
      *
      * @param Container  $container  The container
      */
@@ -49,6 +49,11 @@ class Renderer
         );
     }
 
+    /**
+     * Get the Page content
+     *
+     * @return string
+     */
     private function getPageContent()
     {
         $twig   = new \Twig_Environment(new \Twig_Loader_String());
@@ -62,11 +67,19 @@ class Renderer
         );
     }
 
+    /**
+     * Get the view name from Page layout
+     *
+     * @return string
+     */
     private function getViewName()
     {
         return ($this->page->getLayout() ? $this->page->getLayout() : 'default') . '.twig';
     }
 
+    /**
+     * Load Theme
+     */
     private function loadTheme()
     {
         $themes = $this->container->get('themes');
