@@ -55,7 +55,7 @@ class Container extends \Pimple
         $this['root_dir'] = realpath($c['web_dir'] . '/../');
         $this['docs_dir'] = realpath($c['root_dir'] . '/docs/');
 
-        $this['configs'] = $this->share(function () use ($c) {
+        $this['config'] = $this->share(function () use ($c) {
             $settingsFilename = realpath($c['docs_dir'] . '/settings.yml');
             // TODO return exception if file does not exists
             return new Config(Yaml::parse($settingsFilename));
@@ -82,7 +82,7 @@ class Container extends \Pimple
         });
 
         $this['themes'] = $this->share(function () use ($c) {
-            $themes   = $c->get('configs')->get('theme_dirs');
+            $themes   = $c->get('config')->get('theme_dirs');
             $themes[] = __DIR__ . '/Resources/themes';
 
             return new ThemeCollection($themes);
@@ -92,7 +92,7 @@ class Container extends \Pimple
             $loader = new \Twig_Loader_Filesystem(array('/'));
             $twig   = new \Twig_Environment($loader, array(
                 'strict_variables' => true,
-                'debug'            => $c->get('configs')->get('debug'),
+                'debug'            => $c->get('config')->get('debug'),
                 'auto_reload'      => true,
                 'cache'            => false,
             ));
