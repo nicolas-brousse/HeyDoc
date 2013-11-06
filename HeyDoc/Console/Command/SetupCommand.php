@@ -35,6 +35,7 @@ class SetupCommand extends Command
         $this->copyFile('docs/index.md');
 
         $this->createEmptyDir('web');
+        $this->copyFile('web/.htaccess');
         $this->copyFile('web/index.php');
     }
 
