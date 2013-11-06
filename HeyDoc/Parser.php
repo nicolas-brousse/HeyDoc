@@ -2,7 +2,7 @@
 
 namespace HeyDoc;
 
-class Parsor
+class Parser
 {
     /** @var Container  $container  The container **/
     protected $container;

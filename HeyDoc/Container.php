@@ -62,7 +62,7 @@ class Container extends \Pimple
         });
 
         $this['parser'] = $this->share(function () use ($c) {
-            return new Parsor($c);
+            return new Parser($c);
         });
 
         $this['renderer'] = $this->share(function () use ($c) {
