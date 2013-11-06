@@ -39,7 +39,7 @@ class Renderer
         $viewName = $page->getLayout() ? $page->getLayout() : 'default';
 
         return $this->container->get('twig')->render($viewName . '.twig', array(
-            'site'    => $this->container->get('config'),
+            'config'  => $this->container->get('config'),
             'page'    => $page,
             'content' => $content,
         ));
