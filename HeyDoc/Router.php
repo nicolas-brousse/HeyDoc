@@ -2,6 +2,8 @@
 
 namespace HeyDoc;
 
+use HeyDoc\Exception\NotFoundException;
+
 class Router
 {
     protected $container;
@@ -13,6 +15,7 @@ class Router
 
     public function process()
     {
+        // $paths = explode('/', ltrim($this->container->get('request')->getPath(), '/'));
         $paths = explode('/', ltrim($this->getRequestPath(), '/'));
 
         return $this->findPage($this->container->get('tree'), $paths);
@@ -38,13 +41,16 @@ class Router
         {
             foreach ($tree->getPages() as $page)
             {
+                if ($path === '' && $page->getName() === 'index') {
+                    return $page;
+                }
                 if ($path === $page->getName()) {
                     return $page;
                 }
             }
         }
 
-        // throw new NotFoundException(sprintf("Path %s does not exist", implode('/', $paths)));
+        throw new NotFoundException(sprintf("Path %s does not exist", implode('/', $paths)));
     }
 
     protected function getRequestPath()
