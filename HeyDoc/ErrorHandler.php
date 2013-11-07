@@ -34,6 +34,14 @@ class ErrorHandler
     }
 
     /**
+     * Turn off errors
+     */
+    static public function quiet()
+    {
+        error_reporting(0);
+    }
+
+    /**
      * Unregisters the error handler.
      */
     static public function unregister()

@@ -29,6 +29,9 @@ class Application
         if ($this->container->get('config')->get('debug')) {
             ErrorHandler::register(true);
         }
+        else {
+            ErrorHandler::quiet();
+        }
     }
 
     /**
