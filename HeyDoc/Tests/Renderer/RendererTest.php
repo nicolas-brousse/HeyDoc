@@ -27,7 +27,7 @@ class RendererTest extends \PHPUnit_Framework_TestCase
 
     public function testRender()
     {
-        // TODO: Do a better test on injected vars
+        // @todo  Do a better test on injected vars
 
         foreach ($this->container->get('tree')->getPages() as $page)
         {

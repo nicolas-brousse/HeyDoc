@@ -122,7 +122,7 @@ class Page
                 $d = array_map('trim', explode(':', $line));
 
                 if (count($d) != 2) {
-                    // TODO create an explain Exception
+                    // @todo  Create an explain Exception
                     throw new \Exception(sprintf('Headers format invalid for "%s" file', $this->file->getPathname()));
                 }
 

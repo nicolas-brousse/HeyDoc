@@ -85,7 +85,7 @@ EOF
         }
         $filename .= '.html';
 
-        // TODO: If file exist prompt for replace
+        // @todo  If file exist prompt for replace
         if (! $this->force && $this->fs->exists($filename))
         {
             $this->output->writeln(sprintf('>> page already exists <fg=blue>%s</>', $filename));
