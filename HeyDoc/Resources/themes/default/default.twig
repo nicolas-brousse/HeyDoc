@@ -3,9 +3,9 @@
 <head>
     <meta charset="utf-8">
 
-    <title>{{ page.title }}</title>
-    {% if config.has('description') %}<meta name="description" content="{{ config.description }}">{% endif %}
-    {% if config.has('author') %}<meta name="author" content="{{ config.author }}">{% endif %}
+    <title>{{ page.title }} | {{ app.config.title }}</title>
+    {% if app.config.has('description') %}<meta name="description" content="{{ app.config.description }}">{% endif %}
+    {% if app.config.has('author') %}<meta name="author" content="{{ app.config.author }}">{% endif %}
 
     <meta name="generator" content="HeyDoc">
 

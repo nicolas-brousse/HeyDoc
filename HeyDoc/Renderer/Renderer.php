@@ -61,8 +61,11 @@ class Renderer
         return $twig->render(
             $this->container->get('parser')->parse($this->page),
             array(
-                'config'  => $this->container->get('config'),
-                'page'    => $this->page,
+                'app'     => array(
+                    'config'  => $this->container->get('config'),
+                    'request' => $this->container->get('request'),
+                ),
+                'page'   => $this->page,
             )
         );
     }
