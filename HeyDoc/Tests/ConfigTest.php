@@ -37,14 +37,43 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($config->get('key'), 'value');
     }
 
-    public function testGetDefaults()
+    public function testAll()
     {
         $config = new Config(array(
-            'title' => 'Lorem',
-            'key'   => 'value',
+            'title'  => 'Lorem',
+            'key'    => 'value',
         ));
 
-        $this->assertEquals($config->getDefaults(), array(
+        $this->assertEquals($config->all(), array(
+            'theme'            => 'default',
+            'debug'            => false,
+            'title'            => 'Lorem',
+            'theme_dirs'       => array(),
+            'date_modified'    => true,
+            'google_analytics' => null,
+            'key'              => 'value',
+        ));
+
+        $config = new Config(array(
+            'title'  => 'Lorem',
+            'key'    => 'value',
+            'nested' => array(
+                'k0' => 'v',
+                'k1' => 'vvv',
+            ),
+        ));
+
+        $this->assertEquals($config->get('nested')->all(), array(
+            'k0' => 'v',
+            'k1' => 'vvv',
+        ));
+    }
+
+    public function testDefaults()
+    {
+        $config = new Config(array());
+
+        $this->assertEquals($config->all(), array(
             'theme'            => 'default',
             'debug'            => false,
             'title'            => 'HeyDoc',

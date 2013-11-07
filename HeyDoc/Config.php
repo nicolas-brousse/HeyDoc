@@ -9,6 +9,17 @@ class Config
 
     protected $parent;
 
+    private $defaults = array(
+        'theme'            => 'default',
+        'debug'            => false,
+        'title'            => 'HeyDoc',
+        'theme_dirs'       => array(),
+        'date_modified'    => true,
+        'google_analytics' => null,
+
+        // 'cache_dir'  => getcwd() . '/cache',
+    );
+
     /**
      * Construct Config from array
      *
@@ -60,25 +71,6 @@ class Config
     }
 
     /**
-     * Get defaults configs
-     *
-     * @return array
-     */
-    public function getDefaults()
-    {
-        return array(
-            'theme'            => 'default',
-            'debug'            => false,
-            'title'            => 'HeyDoc',
-            'theme_dirs'       => array(),
-            'date_modified'    => true,
-            'google_analytics' => null,
-
-            // 'cache_dir'  => getcwd() . '/cache',
-        );
-    }
-
-    /**
      * Magic call method
      *
      * @param string  $name  Method name
@@ -96,7 +88,7 @@ class Config
     protected function parse(array $config)
     {
         if ($this->parent === null) {
-            $config = array_replace($this->getDefaults(), $config);
+            $config = array_replace($this->defaults, $config);
         }
 
         $parsedConfig = new \ArrayObject();
