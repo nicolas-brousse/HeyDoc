@@ -1,5 +1,6 @@
 # HeyDoc
 
+[![Build Status](https://travis-ci.org/nicolas-brousse/heydoc.png?branch=master)](https://travis-ci.org/nicolas-brousse/heydoc)
 
 ## Installation
 
