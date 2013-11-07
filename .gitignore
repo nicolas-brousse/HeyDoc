@@ -1,5 +1,6 @@
 /vendor/*
 composer.lock
 
+/_export
 /web
 /docs
