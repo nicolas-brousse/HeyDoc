@@ -55,7 +55,15 @@ class Tree
 
     public function addPage(Page $page)
     {
-        $this->pages->append($page);
+        $this->pages->offsetSet($page->getName(), $page);
+    }
+
+    public function getPage($pageName)
+    {
+        if (! $this->pages->offsetExists($pageName)) {
+            throw new \Exception(sprintf('Page named "%s" does not exists in this %s', $pageName, __CLASS__));
+        }
+        return $this->pages->offsetGet($pageName);
     }
 
     public function refresh()
