@@ -2,6 +2,7 @@
 
 namespace HeyDoc\Renderer;
 
+use HeyDoc\HeyDoc;
 use HeyDoc\Container;
 
 class TwigExtension extends \Twig_Extension
@@ -36,7 +37,14 @@ class TwigExtension extends \Twig_Extension
      */
     public function getFunctions()
     {
-        return array();
+        return array(
+            'heydoc_version' => new \Twig_Function_Method($this, 'getHeyDocVersion', array()),
+        );
+    }
+
+    public function getHeyDocVersion()
+    {
+        return HeyDoc::VERSION;
     }
 
     /**
