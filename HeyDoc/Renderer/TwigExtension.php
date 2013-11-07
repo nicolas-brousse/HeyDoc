@@ -2,6 +2,8 @@
 
 namespace HeyDoc\Renderer;
 
+use HeyDoc\Container;
+
 class TwigExtension extends \Twig_Extension
 {
     /** @var Container  $container  The container **/
