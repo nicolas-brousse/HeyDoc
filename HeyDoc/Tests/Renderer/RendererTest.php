@@ -3,12 +3,8 @@
 namespace HeyDoc\Tests\Renderer;
 
 use HeyDoc\Container;
-use HeyDoc\Page;
 use HeyDoc\Request;
-use HeyDoc\Tree;
 use HeyDoc\Renderer\Renderer;
-
-use Symfony\Component\Finder\SplFileInfo;
 
 class RendererTest extends \PHPUnit_Framework_TestCase
 {
@@ -31,10 +27,14 @@ class RendererTest extends \PHPUnit_Framework_TestCase
 
     public function testRender()
     {
-        $page    = $this->container->get('tree')->getPages()->offsetGet(0);
-        $content = $this->container->get('renderer')->render($page);
+        // TODO: Do a better test on injected vars
 
-        $this->assertContains('<h2>TEST MARKDOWN</h2>', $content);
-        $this->assertContains('<h1>' . $page->getTitle() . '</h1>', $content);
+        foreach ($this->container->get('tree')->getPages() as $page)
+        {
+            $content = $this->container->get('renderer')->render($page);
+
+            // $this->assertContains('<h2>TEST MARKDOWN</h2>', $content);
+            $this->assertContains('<h1>' . $page->getTitle() . '</h1>', $content);
+        }
     }
 }
