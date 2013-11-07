@@ -2,6 +2,7 @@
     "name": "heydoc/heydoc",
     "description": "",
     "license": "MIT",
+
     "authors": [
         {
             "name": "Nicolas Brousse",
@@ -14,7 +15,7 @@
     ],
 
     "require": {
-        "php": ">=5.3.0",
+        "php": ">=5.3.3",
         "pimple/pimple": "1.0.*",
         "twig/twig": "1.*",
         "dflydev/markdown": "~1.0",
@@ -22,7 +23,6 @@
         "symfony/finder": "~2.1",
         "symfony/filesystem": "~2.1",
         "symfony/yaml": "~2.1",
-        "symfony/process": "~2.1",
         "symfony/http-foundation": "~2.1"
     },
     "autoload": {
