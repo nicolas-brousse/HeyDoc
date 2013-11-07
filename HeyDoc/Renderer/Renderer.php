@@ -42,7 +42,10 @@ class Renderer
         return $this->container->get('twig')->render(
             $this->getViewName(),
             array(
-                'config'  => $this->container->get('config'),
+                'app'     => array(
+                    'config'  => $this->container->get('config'),
+                    'request' => $this->container->get('request'),
+                ),
                 'page'    => $page,
                 'content' => $this->getPageContent(),
             )
@@ -77,7 +80,7 @@ class Renderer
      */
     private function getViewName()
     {
-        return ($this->page->getLayout() ? $this->page->getLayout() : 'default') . '.twig';
+        return ($this->page->getLayout() ? mb_strtolower($this->page->getLayout()) : 'default') . '.twig';
     }
 
     /**
