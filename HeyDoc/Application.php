@@ -18,7 +18,9 @@ class Application
     protected $page;
 
     /**
+     * Contruct
      *
+     * @param Request  $request  Request to perform (Move it into run() method?)
      */
     public function __construct(Request $request)
     {
@@ -35,7 +37,7 @@ class Application
     }
 
     /**
-     *
+     * Run the application
      */
     public function run()
     {
@@ -49,7 +51,7 @@ class Application
     }
 
     /**
-     *
+     * Prepare
      */
     protected function prepare()
     {
@@ -57,7 +59,7 @@ class Application
     }
 
     /**
-     *
+     * Process
      */
     protected function process()
     {
