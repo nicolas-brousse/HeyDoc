@@ -1,7 +1,7 @@
 language: php
 
 php:
-  - 5.3.0
+  - 5.3.3
   - 5.3
   - 5.4
   - 5.5
@@ -9,5 +9,6 @@ php:
 before_script:
     - composer selfupdate
     - composer install --dev --prefer-source
+    - phpenv versions
 
 script: "phpunit --colors --coverage-text"
