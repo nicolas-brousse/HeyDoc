@@ -97,7 +97,7 @@ class Container extends \Pimple
                 'cache'            => false,
             ));
 
-            $twig->addExtension(new TwigExtension());
+            $twig->addExtension(new TwigExtension($c));
 
             return $twig;
         });

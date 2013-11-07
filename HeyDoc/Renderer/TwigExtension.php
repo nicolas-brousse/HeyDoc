@@ -4,6 +4,19 @@ namespace HeyDoc\Renderer;
 
 class TwigExtension extends \Twig_Extension
 {
+    /** @var Container  $container  The container **/
+    protected $container;
+
+    /**
+     *
+     *
+     * @param Container  $container  The container
+     */
+    public function __construct(Container $container)
+    {
+        $this->container = $container;
+    }
+
     /**
      * Returns a list of filters to add to the existing list.
      *
