@@ -54,7 +54,7 @@ class Page
     public function getUpdatedAt()
     {
         if (! $this->updatedAt) {
-            $this->updatedAt = new DateTime($this->file->getMTime());
+            $this->updatedAt = \DateTime::createFromFormat('U', $this->file->getMTime());
         }
         return $this->updatedAt;
     }
