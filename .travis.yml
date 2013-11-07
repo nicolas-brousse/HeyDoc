@@ -9,6 +9,6 @@ php:
 before_script:
     - composer selfupdate
     - composer install --dev --prefer-source
-    - phpenv versions
+    - php-build --definitions
 
 script: "phpunit --colors --coverage-text"
