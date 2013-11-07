@@ -3,6 +3,7 @@
 namespace HeyDoc\Console\Command;
 
 use HeyDoc\Container;
+use HeyDoc\Request;
 
 use Symfony\Component\Console\Command\Command as BaseCommand;
 use Symfony\Component\Console\Input\InputInterface;
@@ -38,6 +39,7 @@ class Command extends BaseCommand
         $this->fs = new Filesystem;
 
         $this->container = new Container();
+        $this->container->setRequest(new Request());
         $this->container->setWebDir(getcwd() . DIRECTORY_SEPARATOR . 'web');
         $this->container->load();
     }
