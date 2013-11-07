@@ -46,7 +46,7 @@ class Container extends \Pimple
     }
 
     /**
-     *
+     * Load services
      */
     public function load()
     {
@@ -104,7 +104,7 @@ class Container extends \Pimple
     }
 
     /**
-     *
+     * Ask if named service exists
      *
      * @param string  $name  Name of the service to check
      *
@@ -116,7 +116,7 @@ class Container extends \Pimple
     }
 
     /**
-     *
+     * Get a service from is name
      *
      * @param string  $name  Name of the service to called
      *
