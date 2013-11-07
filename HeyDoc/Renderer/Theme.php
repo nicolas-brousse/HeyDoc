@@ -7,6 +7,7 @@ use Symfony\Component\Finder\SplFileInfo;
 class Theme
 {
     private $directory;
+    private $name;
 
     /**
      * Contruct
@@ -23,6 +24,12 @@ class Theme
             ));
         }
         $this->directory = $directory;
+        $this->name      = mb_strtolower($this->directory->getRelativePathname());
+    }
+
+    public function getName()
+    {
+        return $this->name;
     }
 
     /**

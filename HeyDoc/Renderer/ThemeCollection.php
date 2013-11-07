@@ -66,7 +66,8 @@ class ThemeCollection
         }
 
         foreach ($finder as $dir) {
-            $this->registerTheme(mb_strtolower($dir->getRelativePathname()), new Theme($dir));
+            $t = new Theme($dir);
+            $this->registerTheme($t->getName(), $t);
         }
     }
 }
