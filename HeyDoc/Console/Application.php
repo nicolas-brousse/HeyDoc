@@ -4,8 +4,9 @@ namespace HeyDoc\Console;
 
 use Symfony\Component\Console\Application as BaseApplication;
 
-use HeyDoc\Console\Command\SetupCommand;
+use HeyDoc\Console\Command\CheckCommand;
 use HeyDoc\Console\Command\ExportCommand;
+use HeyDoc\Console\Command\SetupCommand;
 
 class Application extends BaseApplication
 {
@@ -20,5 +21,6 @@ class Application extends BaseApplication
 
         $this->add(new SetupCommand());
         $this->add(new ExportCommand());
+        $this->add(new CheckCommand());
     }
 }
