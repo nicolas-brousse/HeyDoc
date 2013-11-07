@@ -48,7 +48,7 @@ class Page
 
     public function getName()
     {
-        return $this->file->getBasename('.' . $this->file->getExtension());
+        return $this->file->getBasename('.' . $this->getExtension());
     }
 
     public function getUpdatedAt()
@@ -72,7 +72,7 @@ class Page
 
     public function getFormat()
     {
-        switch ($this->file->getExtension()) {
+        switch ($this->getExtension()) {
             case 'md':
             case 'markdown':
                 return self::FORMAT_MARKDOWN;
@@ -81,6 +81,11 @@ class Page
             case 'htm':
                 return self::FORMAT_HTML;
         }
+    }
+
+    protected function getExtension()
+    {
+        return pathinfo($this->file->getFilename(), PATHINFO_EXTENSION);
     }
 
     public function refresh()
