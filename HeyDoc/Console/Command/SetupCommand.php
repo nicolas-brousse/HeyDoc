@@ -36,7 +36,7 @@ class SetupCommand extends Command
             return;
         }
 
-        $sourceDir = realpath(__DIR__.'/../../../templates/');
+        $sourceDir = realpath(__DIR__.'/../../../HeyDoc/Resources/templates/');
 
         $this->fs->copy($sourceDir . DIRECTORY_SEPARATOR . $fileName, $fileToCopy, false);
         $this->output->writeln(sprintf('>> copy file <fg=green>%s</>', $fileName));
