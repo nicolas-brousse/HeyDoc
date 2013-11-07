@@ -46,7 +46,7 @@ class ErrorHandler
      */
     static public function unregister()
     {
-        restore_error_handler():
+        restore_error_handler();
     }
 
     /**
