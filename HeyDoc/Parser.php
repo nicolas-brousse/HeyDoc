@@ -30,6 +30,17 @@ class Parser
             $content = $this->container->get('markdown_parser')->transformMarkdown($content);
         }
 
-        return $content;
+        $twig   = new \Twig_Environment(new \Twig_Loader_String());
+
+        return $twig->render(
+            $content,
+            array(
+                'app'  => array(
+                    'config'  => $this->container->get('config'),
+                    'request' => $this->container->get('request'),
+                ),
+                'page' => $page,
+            )
+        );
     }
 }

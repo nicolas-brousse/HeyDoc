@@ -47,28 +47,7 @@ class Renderer
                     'request' => $this->container->get('request'),
                 ),
                 'page'    => $page,
-                'content' => $this->getPageContent(),
-            )
-        );
-    }
-
-    /**
-     * Get the Page content
-     *
-     * @return string
-     */
-    private function getPageContent()
-    {
-        $twig   = new \Twig_Environment(new \Twig_Loader_String());
-
-        return $twig->render(
-            $this->container->get('parser')->parse($this->page),
-            array(
-                'app'     => array(
-                    'config'  => $this->container->get('config'),
-                    'request' => $this->container->get('request'),
-                ),
-                'page'   => $this->page,
+                'content' => $this->container->get('parser')->parse($this->page),
             )
         );
     }
