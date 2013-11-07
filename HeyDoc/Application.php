@@ -25,6 +25,10 @@ class Application
         $this->container = new Container();
         $this->container->setRequest($request);
         $this->container->load();
+
+        if ($this->container->get('config')->get('debug')) {
+            ErrorHandler::register(true);
+        }
     }
 
     /**

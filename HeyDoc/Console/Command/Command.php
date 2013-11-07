@@ -3,6 +3,7 @@
 namespace HeyDoc\Console\Command;
 
 use HeyDoc\Container;
+use HeyDoc\ErrorHandler;
 use HeyDoc\Request;
 
 use Symfony\Component\Console\Command\Command as BaseCommand;
@@ -30,6 +31,10 @@ class Command extends BaseCommand
      */
     protected function initialize(InputInterface $input, OutputInterface $output)
     {
+        if (OutputInterface::VERBOSITY_DEBUG <= $output->getVerbosity()) {
+            ErrorHandler::register(true);
+        }
+
         $this->input  = $input;
         $this->output = $output;
         $this->dialog = $this->getHelperSet()->get('dialog');
