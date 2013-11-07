@@ -6,8 +6,8 @@ This is a default theme of HeyDoc.
 ## Accessible vars
 
 * `app`
-** `app.config`
-** `app.request`
+  * `app.config`
+  * `app.request`
 * `page`
 * `content`
 
