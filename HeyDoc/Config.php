@@ -7,14 +7,19 @@ class Config
     /** @var array $config **/
     protected $config;
 
+    protected $parent;
+
     /**
      * Construct Config from array
      *
-     * @param array  $config  The container
+     * @param array   $config  The container
+     * @param Config  $parent  The parent Config
      */
-    public function __construct(array $config)
+    public function __construct(array $config, Config $parent = null)
     {
-        $this->config = new \ArrayObject(array_replace($this->getDefaults(), $config));
+        $this->parent = $parent;
+
+        $this->parse($config);
     }
 
     /**
@@ -42,6 +47,16 @@ class Config
             throw new \RuntimeException(sprintf('%s does not contain value for key "%s"', __CLASS__, $key));
         }
         return $this->config->offsetGet($key);
+    }
+
+    /**
+     * Get the configs
+     *
+     * @return array
+     */
+    public function all()
+    {
+        return $this->config->getArrayCopy();
     }
 
     /**
@@ -73,5 +88,34 @@ class Config
     public function __call($name, $arguments)
     {
         return $this->get($name);
+    }
+
+    /**
+     *
+     */
+    protected function parse(array $config)
+    {
+        if ($this->parent === null) {
+            $config = array_replace($this->getDefaults(), $config);
+        }
+
+        $parsedConfig = new \ArrayObject();
+
+        foreach ($config as $k=>$v)
+        {
+
+            if (is_array($v) && $this->isAssociativeArray($v)) {
+                $parsedConfig->offsetSet($k, new Config($v, $this));
+            }
+            else {
+                $parsedConfig->offsetSet($k, $v);
+            }
+        }
+
+        $this->config = $parsedConfig;
+    }
+
+    private function isAssociativeArray(array $a) {
+        return is_array($a) && array_diff_key($a, array_keys(array_keys($a)));
     }
 }
