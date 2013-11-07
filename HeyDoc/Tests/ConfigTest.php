@@ -45,10 +45,12 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
         ));
 
         $this->assertEquals($config->getDefaults(), array(
-            'theme'      => 'default',
-            'debug'      => false,
-            'title'      => 'HeyDoc',
-            'theme_dirs' => array(),
+            'theme'            => 'default',
+            'debug'            => false,
+            'title'            => 'HeyDoc',
+            'theme_dirs'       => array(),
+            'date_modified'    => true,
+            'google_analytics' => null,
         ));
     }
 
