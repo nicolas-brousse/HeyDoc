@@ -25,12 +25,12 @@ class ThemeCollection
     }
 
     /**
-     * Add a Theme into the collection
+     * Register a Theme into the ThemeCollection
      *
      * @param string  $name   The name of the Theme
      * @param Theme   $theme  The Theme
      */
-    public function addTheme($name, Theme $theme)
+    public function registerTheme($name, Theme $theme)
     {
         $this->themes->offsetSet($name, $theme);
     }
@@ -44,6 +44,9 @@ class ThemeCollection
      */
     public function getTheme($themeName)
     {
+        if (! $this->themes->offsetExists($themeName)) {
+            throw new \Exception(sprintf('%s with name "%s" does not registered', __CLASS__, $themeName));
+        }
         return $this->themes->offsetGet($themeName);
     }
 
@@ -63,7 +66,7 @@ class ThemeCollection
         }
 
         foreach ($finder as $dir) {
-            $this->addTheme(mb_strtolower($dir->getRelativePathname()), new Theme($dir));
+            $this->registerTheme(mb_strtolower($dir->getRelativePathname()), new Theme($dir));
         }
     }
 }
