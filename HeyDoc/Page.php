@@ -30,7 +30,10 @@ class Page
 
     public function getTitle()
     {
-        return $this->headers->offsetExists('title') ? $this->headers->offsetGet('title') : ucfirst($this->getName());
+        return $this->headers->offsetExists('title')
+            ? $this->headers->offsetGet('title')
+            : ucfirst(str_replace('_', ' ', $this->getName()))
+        ;
     }
 
     public function getLayout()
@@ -63,7 +66,8 @@ class Page
 
     public function getUrl()
     {
-        return $this->tree->getUrl() . '/' . $this->getName();
+        $name = $this->getName() == 'index' ? '' : $this->getName() . '/';
+        return $this->tree->getUrl() . '/' . $name;
     }
 
     public function getFormat()
