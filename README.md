@@ -17,7 +17,7 @@ Create `composer.json` file:
     "description": "HeyDoc application",
     "require": {
         "php": ">=5.3.3",
-        "heydoc/heydoc": "@dev"
+        "heydoc/heydoc": "~0.1"
     },
     "config": {
         "bin-dir": "bin"
@@ -26,6 +26,8 @@ Create `composer.json` file:
 ```
 
 And `composer install`.
+
+Then setup HeyDoc with our command `bin/heydoc setup`.
 
 
 ## Themes
