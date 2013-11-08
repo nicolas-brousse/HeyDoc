@@ -30,6 +30,6 @@ And `composer install`.
 
 ## Themes
 
-List of [themes](/nicolas-brousse/HeyDoc/blob/master/HeyDoc/Resources/themes):
+List of [themes](https://github.com/nicolas-brousse/HeyDoc/blob/master/HeyDoc/Resources/themes):
 
-* [default](/nicolas-brousse/HeyDoc/blob/master/HeyDoc/Resources/default)
+* [default](https://github.com/nicolas-brousse/HeyDoc/blob/master/HeyDoc/Resources/default)
