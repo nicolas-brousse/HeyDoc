@@ -8,6 +8,6 @@ class HeyDocTest extends \PHPUnit_Framework_TestCase
 {
     public function testVersion()
     {
-        $this->assertEquals(HeyDoc::VERSION, '0.0.1-beta');
+        $this->assertEquals(HeyDoc::VERSION, '0.1.0');
     }
 }
