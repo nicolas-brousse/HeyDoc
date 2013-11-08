@@ -40,12 +40,12 @@ class Command extends BaseCommand
 
         $this->currentDir = getcwd();
 
-        $this->fs = $this->container->get('fs');
-
         $this->container = new Container();
         $this->container->setRequest(new Request());
         $this->container->setWebDir(getcwd() . DIRECTORY_SEPARATOR . 'web');
         $this->container->load();
+
+        $this->fs = $this->container->get('fs');
     }
 
     /**
