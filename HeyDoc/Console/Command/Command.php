@@ -10,7 +10,6 @@ use Symfony\Component\Console\Command\Command as BaseCommand;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Component\Filesystem\Filesystem;
 
 class Command extends BaseCommand
 {
@@ -41,7 +40,7 @@ class Command extends BaseCommand
 
         $this->currentDir = getcwd();
 
-        $this->fs = new Filesystem;
+        $this->fs = $this->container->get('fs');
 
         $this->container = new Container();
         $this->container->setRequest(new Request());
