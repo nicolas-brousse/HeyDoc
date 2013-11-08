@@ -28,7 +28,7 @@ class Application
         $this->container->setRequest($request);
         $this->container->load();
 
-        if ($this->container->get('config')->get('debug') === true) {
+        if ($this->container->get('config')->get('debug') == true) {
             ErrorHandler::register(true);
         }
         else {
