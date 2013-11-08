@@ -26,3 +26,10 @@ Create `composer.json` file:
 ```
 
 And `composer install`.
+
+
+## Themes
+
+List of [themes](/nicolas-brousse/HeyDoc/blob/master/HeyDoc/Resources/themes):
+
+* [default](/nicolas-brousse/HeyDoc/blob/master/HeyDoc/Resources/default)
