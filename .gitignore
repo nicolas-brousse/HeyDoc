@@ -4,3 +4,7 @@ composer.lock
 /_export
 /web
 /docs
+/cache
+
+/HeyDoc/Tests/Resources/cache/*
+!HeyDoc/Tests/Resources/cache/.keep

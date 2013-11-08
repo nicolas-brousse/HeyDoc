@@ -20,7 +20,14 @@ class RendererTest extends \PHPUnit_Framework_TestCase
 
     public function testConstruct()
     {
-        $renderer = new Renderer(new Container());
+        $renderer = new Renderer($this->container);
+
+        $this->assertNotNull($renderer);
+
+
+        $renderer = new Renderer($this->container, array(
+            'cache' => false,
+        ));
 
         $this->assertNotNull($renderer);
     }

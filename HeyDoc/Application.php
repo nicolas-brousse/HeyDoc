@@ -67,6 +67,7 @@ class Application
         $response->setContent(
             $this->container->get('renderer')->render($this->page)
         );
+        $response->headers->add(array('Last-Modified' => $this->page->getUpdatedAt()->format(\DateTime::RFC2822)));
         $response->send();
     }
 }

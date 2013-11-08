@@ -84,7 +84,10 @@ class Container extends \Pimple
         });
 
         $this['renderer'] = $this->share(function () use ($c) {
-            return new Renderer($c);
+            return new Renderer($c, array(
+                'debug' => (boolean) $c->get('config')->get('debug'),
+                'cache' => $c->get('config')->get('cache_dir') ? $c->get('config')->get('cache_dir') . '/renderer' : false,
+            ));
         });
 
         $this['tree'] = $this->share(function () use ($c) {
@@ -107,8 +110,8 @@ class Container extends \Pimple
             $twig   = new \Twig_Environment($loader, array(
                 'strict_variables' => true,
                 'debug'            => (boolean) $c->get('config')->get('debug'),
-                'auto_reload'      => true,
-                'cache'            => false,
+                'auto_reload'      => (boolean) $c->get('config')->get('debug'),
+                'cache'            => $c->get('config')->get('cache_dir') ? $c->get('config')->get('cache_dir') . '/twig' : false,
             ));
 
             $twig->addExtension(new TwigExtension($c));
