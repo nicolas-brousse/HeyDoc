@@ -64,6 +64,7 @@ class Application
     protected function process()
     {
         $response = new Response();
+        $response->prepare($this->container->get('request'));
         $response->setContent(
             $this->container->get('renderer')->render($this->page)
         );

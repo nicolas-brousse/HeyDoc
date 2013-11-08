@@ -66,7 +66,7 @@ class Router
             }
         }
 
-        throw new NotFoundException($this->container->get('config')->get('debug') === true
+        throw new NotFoundException($this->container->get('config')->get('debug') == true
             ? sprintf('No Page found for path "/%s" does not exist', implode('/', $paths))
             : ''
         );
