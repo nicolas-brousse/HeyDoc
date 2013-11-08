@@ -58,10 +58,16 @@ class Container extends \Pimple
         $this['config'] = $this->share(function () use ($c) {
             $settingsFilename = realpath($c['docs_dir'] . '/settings.yml');
 
+            $vars = array(
+                'root_dir' => $c['root_dir'],
+                'docs_dir' => $c['docs_dir'],
+                'web_dir'  => $c['web_dir'],
+            );
+
             return new Config(file_exists($settingsFilename)
                 ? Yaml::parse($settingsFilename)
                 : array()
-            );
+            , null, $vars);
         });
 
         $this['markdown_parser'] = $this->share(function () use ($c) {

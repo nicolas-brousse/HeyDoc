@@ -13,6 +13,14 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
         ));
 
         $this->assertNotNull($config);
+
+        $config = new Config(array(
+            'path' => '%var%/toto',
+        ), null, array(
+            'var' => '/path/to',
+        ));
+
+        $this->assertEquals($config->get('path'), '/path/to/toto');
     }
 
     public function testHas()
@@ -52,6 +60,7 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
             'date_modified'    => true,
             'google_analytics' => null,
             'key'              => 'value',
+            'cache_dir'        => '%root_dir%/cache',
         ));
 
         $config = new Config(array(
@@ -77,9 +86,11 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
             'theme'            => 'default',
             'debug'            => false,
             'title'            => 'HeyDoc',
-            'theme_dirs'       => array(),
             'date_modified'    => true,
             'google_analytics' => null,
+
+            'cache_dir'  => '%root_dir%/cache',
+            'theme_dirs' => array(),
         ));
     }
 

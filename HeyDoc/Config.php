@@ -7,17 +7,21 @@ class Config
     /** @var array $config **/
     protected $config;
 
+    /** @var Config $parent **/
     protected $parent;
+
+    /** @var array $vars **/
+    protected $vars;
 
     private $defaults = array(
         'theme'            => 'default',
         'debug'            => false,
         'title'            => 'HeyDoc',
-        'theme_dirs'       => array(),
         'date_modified'    => true,
         'google_analytics' => null,
 
-        // 'cache_dir'  => getcwd() . '/cache',
+        'cache_dir'  => '%root_dir%/cache',
+        'theme_dirs' => array(),
     );
 
     /**
@@ -25,10 +29,12 @@ class Config
      *
      * @param array   $config  The container
      * @param Config  $parent  The parent Config
+     * @param array   $vars    Vars to replace into Config values
      */
-    public function __construct(array $config, Config $parent = null)
+    public function __construct(array $config, Config $parent = null, array $vars = array())
     {
         $this->parent = $parent;
+        $this->vars   = $vars;
 
         $this->parse($config);
     }
@@ -83,7 +89,9 @@ class Config
     }
 
     /**
+     * Parse the array to set Config
      *
+     * @param array  $config
      */
     protected function parse(array $config)
     {
@@ -95,18 +103,40 @@ class Config
 
         foreach ($config as $k=>$v)
         {
-
             if (is_array($v) && $this->isAssociativeArray($v)) {
-                $parsedConfig->offsetSet($k, new Config($v, $this));
+                $parsedConfig->offsetSet($k, new Config($v, $this, $this->vars));
             }
             else {
-                $parsedConfig->offsetSet($k, $v);
+                $parsedConfig->offsetSet($k, $this->parseValue($v));
             }
         }
 
         $this->config = $parsedConfig;
     }
 
+    /**
+     * Parse a Config string value
+     *
+     * @param string  $value  Value to parse
+     *
+     * @return string  Parsed value
+     */
+    private function parseValue($value)
+    {
+        $keys = array_map(function($v) {
+            return '%' . $v . '%';
+        }, array_keys($this->vars));
+
+        return str_replace($keys, array_values($this->vars), $value);
+    }
+
+    /**
+     * Check if array is an associative array
+     *
+     * @param array  $a  Array to check
+     *
+     * @return boolean
+     */
     private function isAssociativeArray(array $a) {
         return is_array($a) && array_diff_key($a, array_keys(array_keys($a)));
     }
