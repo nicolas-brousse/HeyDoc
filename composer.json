@@ -23,7 +23,7 @@
         "php": ">=5.3.3",
         "pimple/pimple": "1.0.*",
         "twig/twig": "1.*",
-        "dflydev/markdown": "~1.0",
+        "brainsware/php-markdown-extra-extended": "dev-master",
         "symfony/console": "~2.3",
         "symfony/finder": "~2.3",
         "symfony/filesystem": "~2.3",

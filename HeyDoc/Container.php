@@ -2,9 +2,8 @@
 
 namespace HeyDoc;
 
-use dflydev\markdown\MarkdownExtraParser;
-
 use HeyDoc\Parser\Parser;
+use HeyDoc\Parser\Markdown;
 use HeyDoc\Renderer\Renderer;
 use HeyDoc\Renderer\ThemeCollection;
 use HeyDoc\Renderer\TwigExtension;
@@ -66,7 +65,7 @@ class Container extends \Pimple
         });
 
         $this['markdown_parser'] = $this->share(function () use ($c) {
-            return new MarkdownExtraParser();
+            return new Markdown();
         });
 
         $this['parser'] = $this->share(function () use ($c) {
