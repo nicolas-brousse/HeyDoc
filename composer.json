@@ -1,12 +1,17 @@
 {
     "name": "heydoc/heydoc",
-    "description": "",
+    "description": "Documentation website based on markdown and html files",
+    "type": "library",
     "license": "MIT",
+    "homepage": "http://github.com/nicolas-brousse/HeyDoc",
+    "keywords": [],
 
     "authors": [
         {
             "name": "Nicolas Brousse",
-            "email": "pro@nicolas-brousse.fr"
+            "email": "pro@nicolas-brousse.fr",
+            "homepage": "http://nicolas-brousse.fr",
+            "role": "Developer"
         },
         {
             "name": "Christophe Massolin",
@@ -15,7 +20,7 @@
     ],
 
     "require": {
-        "php": ">=5.3.0",
+        "php": ">=5.3.3",
         "pimple/pimple": "1.0.*",
         "twig/twig": "1.*",
         "dflydev/markdown": "~1.0",
