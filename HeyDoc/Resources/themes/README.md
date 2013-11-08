@@ -20,3 +20,4 @@ The default theme is `default` but you can choose an other theme. Themes into th
 ### Twig helpers
 
 * `heydoc_version()`
+* `markdown_transform()`
