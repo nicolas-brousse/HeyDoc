@@ -17,5 +17,5 @@ script:
     - bin/heydoc setup
     - bin/heydoc check
     - bin/heydoc export
-    - ls -l _export
+    - tree _export
     # - php composer.phar create-project heydoc/heydoc-application . --no-progress -s dev
