@@ -4,6 +4,7 @@ namespace HeyDoc;
 
 use dflydev\markdown\MarkdownExtraParser;
 
+use HeyDoc\Parser\Parser;
 use HeyDoc\Renderer\Renderer;
 use HeyDoc\Renderer\ThemeCollection;
 use HeyDoc\Renderer\TwigExtension;
@@ -57,8 +58,11 @@ class Container extends \Pimple
 
         $this['config'] = $this->share(function () use ($c) {
             $settingsFilename = realpath($c['docs_dir'] . '/settings.yml');
-            // TODO return exception if file does not exists
-            return new Config(Yaml::parse($settingsFilename));
+
+            return new Config(file_exists($settingsFilename)
+                ? Yaml::parse($settingsFilename)
+                : array()
+            );
         });
 
         $this['markdown_parser'] = $this->share(function () use ($c) {
@@ -82,17 +86,17 @@ class Container extends \Pimple
         });
 
         $this['themes'] = $this->share(function () use ($c) {
-            $themes   = $c->get('config')->get('theme_dirs');
-            $themes[] = __DIR__ . '/Resources/themes';
-
-            return new ThemeCollection($themes);
+            return new ThemeCollection(array_merge(
+                array(__DIR__ . '/Resources/themes'),
+                $c->get('config')->get('theme_dirs')
+            ));
         });
 
         $this['twig'] = $this->share(function () use ($c) {
             $loader = new \Twig_Loader_Filesystem(array('/'));
             $twig   = new \Twig_Environment($loader, array(
                 'strict_variables' => true,
-                'debug'            => $c->get('config')->get('debug'),
+                'debug'            => (boolean) $c->get('config')->get('debug'),
                 'auto_reload'      => true,
                 'cache'            => false,
             ));

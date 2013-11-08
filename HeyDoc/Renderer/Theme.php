@@ -2,8 +2,6 @@
 
 namespace HeyDoc\Renderer;
 
-use Symfony\Component\Finder\SplFileInfo;
-
 class Theme
 {
     private $directory;
@@ -14,7 +12,7 @@ class Theme
      *
      * @param SplFileInfo  $directory  Root directory of Theme
      */
-    public function __construct(SplFileInfo $directory)
+    public function __construct(\SplFileInfo $directory)
     {
         if (! $directory->isDir()) {
             throw new \InvalidArgumentException(sprintf(
@@ -24,7 +22,7 @@ class Theme
             ));
         }
         $this->directory = $directory;
-        $this->name      = mb_strtolower($this->directory->getRelativePathname());
+        $this->name      = mb_strtolower($this->directory->getBasename());
     }
 
     public function getName()

@@ -4,8 +4,6 @@ namespace HeyDoc\Tests\Renderer;
 
 use HeyDoc\Renderer\ThemeCollection;
 
-use Symfony\Component\Finder\SplFileInfo;
-
 class ThemeCollectionTest extends \PHPUnit_Framework_TestCase
 {
     private $themeDirs;

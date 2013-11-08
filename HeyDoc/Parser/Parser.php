@@ -1,6 +1,9 @@
 <?php
 
-namespace HeyDoc;
+namespace HeyDoc\Parser;
+
+use HeyDoc\Container;
+use HeyDoc\Page;
 
 class Parser
 {
@@ -8,7 +11,7 @@ class Parser
     protected $container;
 
     /**
-     *
+     * Construct
      *
      * @param Container  $container  The container
      */
@@ -27,10 +30,10 @@ class Parser
         $content = $page->getContent();
 
         if ($page->getFormat() == Page::FORMAT_MARKDOWN) {
-            $content = $this->container->get('markdown_parser')->transformMarkdown($content);
+            $content = $this->container->get('markdown_parser')->transform($content);
         }
 
-        $twig   = new \Twig_Environment(new \Twig_Loader_String());
+        $twig = new \Twig_Environment(new \Twig_Loader_String());
 
         return $twig->render(
             $content,

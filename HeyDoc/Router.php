@@ -10,7 +10,7 @@ class Router
     protected $container;
 
     /**
-     *
+     * Construct.
      *
      * @param Container  $container  The container
      */
@@ -31,7 +31,7 @@ class Router
     }
 
     /**
-     *
+     * Find the called page
      *
      * @param Tree   $tree   Tree where seek
      * @param array  $paths  Exploded path
@@ -66,6 +66,9 @@ class Router
             }
         }
 
-        throw new NotFoundException(sprintf('Path "/%s" does not exist', implode('/', $paths)));
+        throw new NotFoundException($this->container->get('config')->get('debug') === true
+            ? sprintf('No Page found for path "/%s" does not exist', implode('/', $paths))
+            : ''
+        );
     }
 }

@@ -2,8 +2,6 @@
 
 namespace HeyDoc;
 
-use Symfony\Component\Finder\SplFileInfo;
-
 class Page
 {
     const FORMAT_MARKDOWN = 'markdown';
@@ -17,7 +15,7 @@ class Page
 
     protected $headers;
 
-    public function __construct(SplFileInfo $file, Tree $tree)
+    public function __construct(\SplFileInfo $file, Tree $tree)
     {
         $this->file = $file;
         $this->tree = $tree;
