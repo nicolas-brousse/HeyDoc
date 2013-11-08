@@ -81,7 +81,7 @@ EOF
         $filename = $this->exportDir . $page->getUrl();
         if (basename($filename) !== 'index') {
             $this->createEmptyDir($page->getUrl());
-            $filename .= '/index';
+            $filename .= 'index';
         }
         $filename .= '.html';
 

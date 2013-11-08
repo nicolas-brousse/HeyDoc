@@ -2,7 +2,7 @@
 
 namespace HeyDoc\Console\Command;
 
-use HeyDoc\Container;
+use HeyDoc\Console\Container;
 use HeyDoc\ErrorHandler;
 use HeyDoc\Request;
 
