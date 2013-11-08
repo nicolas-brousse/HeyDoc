@@ -2,11 +2,16 @@
 
 This is a list of themes available with HeyDoc.
 
+
+
 ## How choose
 
 The default theme is `default` but you can choose an other theme. Themes into this folder are the only available.
 
+
+
 ## For developpers
+
 
 ### Accessible vars
 
@@ -17,7 +22,13 @@ The default theme is `default` but you can choose an other theme. Themes into th
 * `content`
 
 
+
 ### Twig helpers
 
+#### Methods
+
 * `heydoc_version()`
-* `markdown_transform()`
+
+#### Filters
+
+* `|markdown_transform`

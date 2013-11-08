@@ -27,7 +27,9 @@ class TwigExtension extends \Twig_Extension
      */
     public function getFilters()
     {
-        return array();
+        return array(
+            'markdown_transform' => new \Twig_Filter_Method($this, 'markdownTransform', array('is_safe' => array('html'))),
+        );
     }
 
     /**
@@ -39,7 +41,6 @@ class TwigExtension extends \Twig_Extension
     {
         return array(
             'heydoc_version'     => new \Twig_Function_Method($this, 'getHeyDocVersion', array()),
-            'markdown_transform' => new \Twig_Function_Method($this, 'markdownTransform', array('is_safe' => array('html'))),
         );
     }
 
