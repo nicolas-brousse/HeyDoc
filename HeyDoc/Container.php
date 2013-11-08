@@ -8,13 +8,14 @@ use HeyDoc\Renderer\Renderer;
 use HeyDoc\Renderer\ThemeCollection;
 use HeyDoc\Renderer\TwigExtension;
 
+use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Yaml\Exception\ParseException;
 use Symfony\Component\Yaml\Yaml;
 
 class Container extends \Pimple
 {
     /**
-     *
+     * Construct
      */
     public function __construct()
     {
@@ -68,6 +69,10 @@ class Container extends \Pimple
                 ? Yaml::parse($settingsFilename)
                 : array()
             , null, $vars);
+        });
+
+        $this['fs'] = $this->share(function () use ($c) {
+            return new Filesystem();
         });
 
         $this['markdown_parser'] = $this->share(function () use ($c) {

@@ -54,7 +54,7 @@ class Command extends BaseCommand
      *
      * @param string  $dirName  Directory to create
      */
-    protected function createEmptyDir($dirName)
+    protected function createEmptyDir($dirName, $mode = 0755)
     {
         $dirToCreate = $this->currentDir . DIRECTORY_SEPARATOR . $dirName;
 
@@ -63,7 +63,7 @@ class Command extends BaseCommand
             return;
         }
 
-        $this->fs->mkdir($dirToCreate, 0755);
+        $this->fs->mkdir($dirToCreate, $mode);
         $this->output->writeln(sprintf('>> create empty directory <fg=green>%s</>', $dirName));
     }
 }
