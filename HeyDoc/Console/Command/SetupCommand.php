@@ -25,6 +25,8 @@ class SetupCommand extends Command
         $this->createEmptyDir('web');
         $this->copyFile('web/.htaccess');
         $this->copyFile('web/index.php');
+
+        $this->createEmptyDir('cache', 0777);
     }
 
     private function copyFile($fileName)
