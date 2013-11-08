@@ -165,6 +165,6 @@ class Renderer
      */
     private function isCacheEnabled()
     {
-        return $this->config['cache'] && is_dir($this->config['cache']);
+        return $this->config['cache'] && is_dir(dirname($this->config['cache']));
     }
 }
