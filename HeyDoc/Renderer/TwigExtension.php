@@ -38,13 +38,19 @@ class TwigExtension extends \Twig_Extension
     public function getFunctions()
     {
         return array(
-            'heydoc_version' => new \Twig_Function_Method($this, 'getHeyDocVersion', array()),
+            'heydoc_version'     => new \Twig_Function_Method($this, 'getHeyDocVersion', array()),
+            'markdown_transform' => new \Twig_Function_Method($this, 'markdownTransform', array('is_safe' => array('html'))),
         );
     }
 
     public function getHeyDocVersion()
     {
         return HeyDoc::VERSION;
+    }
+
+    public function markdownTransform($markdown)
+    {
+        return $this->container->get('markdown_parser')->transform($markdown);
     }
 
     /**
