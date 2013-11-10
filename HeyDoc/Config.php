@@ -16,7 +16,7 @@ class Config
     private $defaults = array(
         'theme'            => 'default',
         'debug'            => false,
-        'title'            => 'HeyDoc',
+        'title'            => 'HeyDoc!',
         'date_modified'    => true,
         'google_analytics' => null,
 
