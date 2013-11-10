@@ -27,6 +27,8 @@ The default theme is `default` but you can choose an other theme. Themes into th
 
 #### Methods
 
+* `path(url)`
+* `heydoc_homepage()`
 * `heydoc_version()`
 
 #### Filters

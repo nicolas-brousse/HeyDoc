@@ -5,6 +5,9 @@ namespace HeyDoc\Renderer;
 use HeyDoc\HeyDoc;
 use HeyDoc\Container;
 
+use Twig_Function_Method;
+use Twig_Filter_Method;
+
 class TwigExtension extends \Twig_Extension
 {
     /** @var Container  $container  The container **/
@@ -28,7 +31,7 @@ class TwigExtension extends \Twig_Extension
     public function getFilters()
     {
         return array(
-            'markdown_transform' => new \Twig_Filter_Method($this, 'markdownTransform', array('is_safe' => array('html'))),
+            'markdown_transform' => new Twig_Filter_Method($this, 'markdownTransform', array('is_safe' => array('html'))),
         );
     }
 
@@ -40,8 +43,20 @@ class TwigExtension extends \Twig_Extension
     public function getFunctions()
     {
         return array(
-            'heydoc_version'     => new \Twig_Function_Method($this, 'getHeyDocVersion', array()),
+            'path'     => new Twig_Function_Method($this, 'getPath', array()),
+
+            'heydoc_homepage' => new Twig_Function_Method($this, 'getHeyDocHomepage', array()),
+            'heydoc_version'  => new Twig_Function_Method($this, 'getHeyDocVersion', array()),
         );
+    }
+
+    public function getPath($path)
+    {
+        return $this->container->get('request')->getBaseUrl() . $path;
+    }
+    public function getHeyDocHomepage()
+    {
+        return 'https://github.com/nicolas-brousse/HeyDoc';
     }
 
     public function getHeyDocVersion()
