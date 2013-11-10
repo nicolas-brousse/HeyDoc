@@ -22,4 +22,26 @@ class Response extends BaseResponse
         $response = new static($body, $status, $headers);
         $response->send();
     }
+
+    /**
+     * Sets the response content.
+     *
+     * Valid types are strings, numbers, and objects that implement a __toString() method.
+     *
+     * @param mixed $content
+     *
+     * @return Response
+     *
+     * @throws \UnexpectedValueException
+     *
+     * @api
+     */
+    public function setContent($content)
+    {
+        parent::setContent($content);
+
+        $this->setETag(md5($content));
+
+        return $this;
+    }
 }
