@@ -85,7 +85,7 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($config->all(), array(
             'theme'            => 'default',
             'debug'            => false,
-            'title'            => 'HeyDoc',
+            'title'            => 'HeyDoc!',
             'date_modified'    => true,
             'google_analytics' => null,
 
