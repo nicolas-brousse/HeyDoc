@@ -77,7 +77,11 @@ class Renderer
      */
     private function generateCachedPagepath(Page $page)
     {
-        $filename = md5($page->getUrl() . $page->getUpdatedAt()->format('U'));
+        $filename = md5(implode('', array(
+            $page->getUrl(),
+            $page->getUpdatedAt()->format('U'),
+            $this->container->get('config')->get('theme'),
+        )));
 
         return implode(DIRECTORY_SEPARATOR, array(
             $this->config['cache'],
