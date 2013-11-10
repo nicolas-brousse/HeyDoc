@@ -4,6 +4,7 @@ namespace HeyDoc;
 
 use HeyDoc\Parser\Parser;
 use HeyDoc\Parser\Markdown;
+use HeyDoc\Highlighter\Highlighter;
 use HeyDoc\Renderer\Renderer;
 use HeyDoc\Renderer\ThemeCollection;
 use HeyDoc\Renderer\TwigExtension;
@@ -79,6 +80,10 @@ class Container extends \Pimple
             return new Markdown();
         });
 
+        $this['highlighter'] = $this->share(function () use ($c) {
+            return new Highlighter();
+        });
+
         $this['parser'] = $this->share(function () use ($c) {
             return new Parser($c);
         });
@@ -105,8 +110,8 @@ class Container extends \Pimple
             ));
         });
 
-        $this['twig'] = $this->share(function () use ($c) {
-            $loader = new \Twig_Loader_Filesystem(array('/'));
+        $this['twig_string'] = $this->share(function () use ($c) {
+            $loader = new \Twig_Loader_String();
             $twig   = new \Twig_Environment($loader, array(
                 'strict_variables' => true,
                 'debug'            => (boolean) $c->get('config')->get('debug'),
@@ -116,6 +121,12 @@ class Container extends \Pimple
 
             $twig->addExtension(new TwigExtension($c));
 
+            return $twig;
+        });
+
+        $this['twig'] = $this->share(function () use ($c) {
+            $twig = clone $c['twig_string'];
+            $twig->setLoader(new \Twig_Loader_Filesystem(array('/')));
             return $twig;
         });
     }

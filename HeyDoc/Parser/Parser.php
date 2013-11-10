@@ -33,9 +33,10 @@ class Parser
             $content = $this->container->get('markdown_parser')->transform($content);
         }
 
-        $twig = new \Twig_Environment(new \Twig_Loader_String());
+        // @todo  Highlight
+        //        $this->container->get('highlighter')->highlight($code, $language);
 
-        return $twig->render(
+        return $this->container->get('twig_string')->render(
             $content,
             array(
                 'app'  => array(
