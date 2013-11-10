@@ -8,6 +8,10 @@ This is a list of themes available with HeyDoc.
 
 The default theme is `default` but you can choose an other theme. Themes into this folder are the only available.
 
+You can create our custom theme and add it with conf `theme_dirs`
+
+You can PR to propose new theme.
+
 
 
 ## For developpers
@@ -34,3 +38,4 @@ The default theme is `default` but you can choose an other theme. Themes into th
 #### Filters
 
 * `|markdown_transform`
+* `|highligth(language)`
