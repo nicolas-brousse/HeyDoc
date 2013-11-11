@@ -27,7 +27,7 @@ class Config
     /**
      * Construct Config from array
      *
-     * @param array   $config  The container
+     * @param array   $config  Array that contain config to parse
      * @param Config  $parent  The parent Config
      * @param array   $vars    Vars to replace into Config values
      */

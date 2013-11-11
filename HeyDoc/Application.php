@@ -2,8 +2,6 @@
 
 namespace HeyDoc;
 
-use dflydev\markdown\MarkdownExtraParser;
-
 use HeyDoc\Exception\NotFoundException;
 
 use Symfony\Component\Yaml\Exception\ParseException;
