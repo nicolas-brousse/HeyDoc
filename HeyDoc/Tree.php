@@ -11,6 +11,12 @@ class Tree
     protected $children;
     protected $directory;
 
+    /**
+     * Construct.
+     *
+     * @param string  $directory  Root directory of this Tree
+     * @param Tree    $parent     Tree parent
+     */
     public function __construct($directory, Tree $parent = null)
     {
         $this->directory = $directory;
@@ -89,7 +95,8 @@ class Tree
         $files  = $finder->files()
             ->in($this->directory)
             ->depth('0')
-            ->name('*.md')->name('*.html')
+            ->name('*.md')->name('*.markdown')
+            ->name('*.htm')->name('*.html')
         ;
         foreach ($files as $file) {
             $this->addPage(new Page($file, $this));

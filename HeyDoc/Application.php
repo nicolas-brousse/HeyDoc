@@ -9,10 +9,10 @@ use Symfony\Component\Yaml\Yaml;
 
 class Application
 {
-    /** @var  **/
+    /** @var Container  $container  The container **/
     protected $container;
 
-    /** @var  **/
+    /** @var Page  $page  The page to return **/
     protected $page;
 
     /**

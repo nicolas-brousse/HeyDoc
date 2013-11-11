@@ -7,14 +7,31 @@ class Page
     const FORMAT_MARKDOWN = 'markdown';
     const FORMAT_HTML     = 'html';
 
+    /** @var SplFileInfo  $file  File for this page **/
     protected $file;
+
+    /** @var Tree  $tree  The Tree for this page **/
     protected $tree;
+
+    /** @var string  $content  Content of this Page **/
     protected $content;
+
+    /** @var string  $format  Content format of this Page **/
     protected $format;
+
+    /** @var DateTime  $container  Date of page is last madified at **/
     protected $updatedAt;
 
+    /** @var ArrayObject  $container  Headers **/
     protected $headers;
 
+
+    /**
+     * Construct.
+     *
+     * @param SplFileInfo  $file  File for this page
+     * @param Tree         $tree  The Tree for this page
+     */
     public function __construct(\SplFileInfo $file, Tree $tree)
     {
         $this->file = $file;
@@ -26,6 +43,11 @@ class Page
         $this->load();
     }
 
+    /**
+     * Get the title of the page
+     *
+     * @return string
+     */
     public function getTitle()
     {
         return $this->headers->offsetExists('title')
@@ -34,21 +56,41 @@ class Page
         ;
     }
 
+    /**
+     * Get the layout name of the page
+     *
+     * @return string
+     */
     public function getLayout()
     {
         return $this->headers->offsetExists('layout') ? $this->headers->offsetGet('layout') : null;
     }
 
+    /**
+     * Get the content of the page
+     *
+     * @return string
+     */
     public function getContent()
     {
         return $this->content;
     }
 
+    /**
+     * Get the name of the page (is based on filename)
+     *
+     * @return string
+     */
     public function getName()
     {
         return $this->file->getBasename('.' . $this->getExtension());
     }
 
+    /**
+     * Get the last modified date of the page
+     *
+     * @return DateTime
+     */
     public function getUpdatedAt()
     {
         if (! $this->updatedAt) {
@@ -57,17 +99,32 @@ class Page
         return $this->updatedAt;
     }
 
+    /**
+     * Get the headers of the page
+     *
+     * @return ArrayObject
+     */
     public function getHeaders()
     {
         return $this->headers;
     }
 
+    /**
+     * Get the url of the page
+     *
+     * @return string
+     */
     public function getUrl()
     {
         $name = $this->getName() == 'index' ? '' : $this->getName() . '/';
         return $this->tree->getUrl() . '/' . $name;
     }
 
+    /**
+     * Get the format of the page
+     *
+     * @return string
+     */
     public function getFormat()
     {
         switch ($this->getExtension()) {
@@ -81,11 +138,19 @@ class Page
         }
     }
 
+    /**
+     * Get the extension of the page
+     *
+     * @return string
+     */
     protected function getExtension()
     {
         return pathinfo($this->file->getFilename(), PATHINFO_EXTENSION);
     }
 
+    /**
+     * Reload the page
+     */
     public function refresh()
     {
         $this->headers = new \ArrayObject();
@@ -94,6 +159,9 @@ class Page
         $this->load();
     }
 
+    /**
+     * Load the page
+     */
     protected function load()
     {
         $hasHeader = false;
