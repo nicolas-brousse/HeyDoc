@@ -39,4 +39,9 @@ class ThemeTest extends \PHPUnit_Framework_TestCase
         catch (\InvalidArgumentException $e) {
         }
     }
+
+    public function testCheck()
+    {
+        // @todo  Test using SplFileInfo(__DIR__ . '/../Resources/templates/wrong_theme', null, 'test_theme')
+    }
 }

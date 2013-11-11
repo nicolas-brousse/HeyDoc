@@ -23,6 +23,8 @@ class Theme
         }
         $this->directory = $directory;
         $this->name      = mb_strtolower($this->directory->getBasename());
+
+        $this->check();
     }
 
     public function getName()
@@ -38,5 +40,23 @@ class Theme
     public function getPath()
     {
         return $this->directory->getRealPath();
+    }
+
+    /**
+     * Check if Theme is valid
+     *
+     * @throws Exception
+     */
+    private function check()
+    {
+        $valid = true;
+
+        // @todo  Use manifest ?
+        //       - Check mains layout exists (home + page?)
+
+        if (! $valid) {
+            // @todo  Create an explained Exception
+            throw new \Exception(sprintf('%s named "%s" is not valid', __CLASS__, $this->getName()));
+        }
     }
 }
