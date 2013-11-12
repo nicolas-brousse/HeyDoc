@@ -30,7 +30,10 @@ class Tree
 
     public function getName()
     {
-        return $this->parent ? basename($this->directory) : null;
+        return $this->parent
+            ? preg_replace("/^\d+_/", '', basename($this->directory))
+            : null
+        ;
     }
 
     public function getUrl()

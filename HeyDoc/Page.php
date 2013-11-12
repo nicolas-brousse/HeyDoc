@@ -83,7 +83,8 @@ class Page
      */
     public function getName()
     {
-        return $this->file->getBasename('.' . $this->getExtension());
+        $name = $this->file->getBasename('.' . $this->getExtension());
+        return preg_replace("/^\d+_/", '', $name);
     }
 
     /**

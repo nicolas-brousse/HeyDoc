@@ -144,7 +144,7 @@ class Renderer
      */
     private function getViewNameForPage(Page $page)
     {
-        return ($page->getLayout() ? mb_strtolower($page->getLayout()) : 'default') . '.twig';
+        return ($page->getLayout() ? mb_strtolower($page->getLayout()) : 'page') . '.twig';
     }
 
     /**
