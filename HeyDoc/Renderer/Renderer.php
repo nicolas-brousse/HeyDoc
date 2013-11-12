@@ -37,7 +37,7 @@ class Renderer
      */
     public function render(Page $page)
     {
-        if ($this->isCacheEnabled() && $this->config['debug'] != false)
+        if ($this->isCacheEnabled() && $this->config['debug'] != true)
         {
             if ($cachedPage = $this->getCachedPage($page)) {
                 return $cachedPage;
