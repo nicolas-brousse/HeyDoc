@@ -21,7 +21,7 @@
 
     "require": {
         "php": ">=5.3.3",
-        "pimple/pimple": "1.0.*",
+        "pimple/pimple": "~1.1",
         "twig/twig": "1.*",
         "brainsware/php-markdown-extra-extended": "dev-master",
         "symfony/console": "~2.3",
