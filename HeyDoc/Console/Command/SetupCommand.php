@@ -18,9 +18,10 @@ class SetupCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
+        // @todo  Use Finder to list files into templates dir and copy this files
         $this->createEmptyDir('docs');
         $this->copyFile('docs/settings.yml');
-        $this->copyFile('docs/index.md');
+        $this->copyFile('docs/00_index.md');
 
         $this->createEmptyDir('web');
         $this->copyFile('web/.htaccess');

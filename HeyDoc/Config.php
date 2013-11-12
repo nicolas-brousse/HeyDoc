@@ -13,6 +13,7 @@ class Config
     /** @var array $vars **/
     protected $vars;
 
+    /** @var array $defaults  Defaults config **/
     private $defaults = array(
         'theme'            => 'default',
         'debug'            => false,
