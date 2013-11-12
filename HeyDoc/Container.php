@@ -140,7 +140,7 @@ class Container extends \Pimple
      */
     public function has($name)
     {
-        return array_key_exists($name, $this);
+        return $this->offsetExists($name);
     }
 
     /**
@@ -152,6 +152,6 @@ class Container extends \Pimple
      */
     public function get($name)
     {
-        return $this[$name];
+        return $this->offsetGet($name);
     }
 }
