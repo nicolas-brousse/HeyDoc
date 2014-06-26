@@ -2,12 +2,10 @@
 
 namespace HeyDoc\Parser;
 
-class Markdown extends \MarkdownExtraExtended_Parser
+class Markdown extends \ParsedownExtra
 {
     public function transform($text)
     {
-        $text = parent::transform($text);
-
-        return $text;
+        return $this->text($text);
     }
 }

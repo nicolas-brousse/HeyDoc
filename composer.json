@@ -23,7 +23,7 @@
         "php": ">=5.3.3",
         "pimple/pimple": "~1.1",
         "twig/twig": "1.*",
-        "egil/php-markdown-extra-extended": "dev-master",
+        "erusev/parsedown-extra": "~0.1",
         "symfony/console": "~2.3",
         "symfony/finder": "~2.3",
         "symfony/filesystem": "~2.3",
