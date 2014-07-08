@@ -44,6 +44,8 @@ class TwigExtension extends \Twig_Extension
     {
         return array(
             'path'     => new Twig_Function_Method($this, 'getPath', array()),
+            
+            'first_page_path' => new Twig_Function_Method($this, 'getFirstPagePath', array()),
 
             'heydoc_homepage' => new Twig_Function_Method($this, 'getHeyDocHomepage', array()),
             'heydoc_version'  => new Twig_Function_Method($this, 'getHeyDocVersion', array()),
@@ -54,6 +56,15 @@ class TwigExtension extends \Twig_Extension
     {
         return $this->container->get('request')->getBaseUrl() . $path;
     }
+
+    public function getFirstPagePath()
+    {
+        // $page = $this->container->get('tree')->getPages();
+        // $path = $page->getUrl();
+        // return $this->getPath($path);
+        return '';
+    }
+
     public function getHeyDocHomepage()
     {
         return 'https://github.com/nicolas-brousse/HeyDoc';
