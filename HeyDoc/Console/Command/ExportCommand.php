@@ -50,13 +50,18 @@ EOF
         if ($a = $input->getArgument('export_dir')) {
             $this->exportDir = $a;
         }
-        $this->exportDir = $this->currentDir = getcwd() . DIRECTORY_SEPARATOR . $this->exportDir;
+        if (! realpath($this->exportDir)) {
+            $this->exportDir = $this->currentDir = getcwd() . DIRECTORY_SEPARATOR . $this->exportDir;
+        }
 
         $output->writeln(sprintf('Export pages in <fg=yellow>%s</>', $this->exportDir));
         $output->writeln('');
 
         $tree = $this->container->get('tree');
         $this->exportTree($tree);
+
+        // @todo  Create 404 page
+        // @todo  Create .htaccess with 404 custom
     }
 
     private function exportTree(Tree $tree)
