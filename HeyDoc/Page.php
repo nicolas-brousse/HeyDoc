@@ -2,6 +2,8 @@
 
 namespace HeyDoc;
 
+use HeyDoc\Exception\ParseException;
+
 class Page
 {
     const FORMAT_MARKDOWN = 'markdown';
@@ -186,11 +188,11 @@ class Page
 
             if ($hasHeader && $isHeader)
             {
+                // @todo  Use /([a-z]*):(.+)/i regex instead
                 $d = array_map('trim', explode(':', $line));
 
                 if (count($d) != 2) {
-                    // @todo  Create an explain Exception
-                    throw new \Exception(sprintf('Headers format invalid for "%s" file', $this->file->getPathname()));
+                    throw new ParseException(sprintf('Headers format invalid for "%s" file', $this->file->getPathname()));
                 }
 
                 $this->headers->offsetSet(mb_strtolower($d[0]), $d[1]);
