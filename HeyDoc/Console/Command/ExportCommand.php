@@ -12,9 +12,13 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class ExportCommand extends Command
 {
-    private $exportDir = '_export';
-    private $force     = false;
+    const DEFAULT_EXPORT_DIR = '_export';
 
+    private $force = false;
+
+    /**
+     *
+     */
     protected function configure()
     {
         $this
@@ -41,20 +45,26 @@ EOF
             );
     }
 
+    /**
+     *
+     */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         if ($input->getOption('force')) {
             $this->force = true;
         }
 
+        $exportDir = self::DEFAULT_EXPORT_DIR;
         if ($a = $input->getArgument('export_dir')) {
-            $this->exportDir = $a;
-        }
-        if (! realpath($this->exportDir)) {
-            $this->exportDir = $this->currentDir = getcwd() . DIRECTORY_SEPARATOR . $this->exportDir;
+            $exportDir = $a;
         }
 
-        $output->writeln(sprintf('Export pages in <fg=yellow>%s</>', $this->exportDir));
+        if (realpath($exportDir)) {
+            $exportDir = getcwd() . DIRECTORY_SEPARATOR . $exportDir;
+            $this->setWorkingDirectory($exportDir);
+        }
+
+        $output->writeln(sprintf('Export pages in <fg=yellow>%s</>', $exportDir));
         $output->writeln('');
 
         $tree = $this->container->get('tree');
@@ -79,11 +89,11 @@ EOF
 
     private function exportPage(Page $page)
     {
-        // call renderer to generate content
+        // Call renderer to generate content
         $content = $this->container->get('renderer')->render($page);
 
         // Build filename
-        $filename = $this->exportDir . $page->getUrl();
+        $filename = $this->getWorkingDirectory() . $page->getUrl();
         if (basename($filename) !== 'index') {
             $this->createEmptyDir($page->getUrl());
             $filename .= 'index';

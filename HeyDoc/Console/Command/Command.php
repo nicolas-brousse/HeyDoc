@@ -18,7 +18,7 @@ class Command extends BaseCommand
     protected $output;
     protected $dialog;
 
-    protected $currentDir;
+    private $workingDirectory;
 
     protected $fs;
 
@@ -38,7 +38,7 @@ class Command extends BaseCommand
         $this->output = $output;
         $this->dialog = $this->getHelperSet()->get('dialog');
 
-        $this->currentDir = getcwd();
+        $this->workingDirectory = getcwd();
 
         $this->container = new Container();
         $this->container->setRequest(new Request());
@@ -50,12 +50,30 @@ class Command extends BaseCommand
 
     /**
      *
+     */
+    protected function setWorkingDirectory($directory)
+    {
+        // if (is_dir($directory)) {
+            $this->workingDirectory = $directory;
+        // }
+    }
+
+    /**
+     *
+     */
+    protected function getWorkingDirectory()
+    {
+        return $this->workingDirectory;
+    }
+
+    /**
+     *
      *
      * @param string  $dirName  Directory to create
      */
     protected function createEmptyDir($dirName, $mode = 0755)
     {
-        $dirToCreate = $this->currentDir . DIRECTORY_SEPARATOR . $dirName;
+        $dirToCreate = $this->workingDirectory . DIRECTORY_SEPARATOR . $dirName;
 
         if ($this->fs->exists($dirToCreate)) {
             $this->output->writeln(sprintf('>> directory already exists <fg=blue>%s</>', $dirName));

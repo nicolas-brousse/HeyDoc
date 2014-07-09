@@ -32,7 +32,7 @@ class SetupCommand extends Command
 
     private function copyFile($fileName)
     {
-        $fileToCopy = $this->currentDir . DIRECTORY_SEPARATOR . $fileName;
+        $fileToCopy = $this->getWorkingDirectory() . DIRECTORY_SEPARATOR . $fileName;
 
         if ($this->fs->exists($fileToCopy)) {
             $this->output->writeln(sprintf('>> file already exists <fg=blue>%s</>', $fileName));

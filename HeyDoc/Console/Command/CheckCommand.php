@@ -26,7 +26,7 @@ class CheckCommand extends Command
     {
         $status = 'Not same';
 
-        $fileToCheck = $this->currentDir . DIRECTORY_SEPARATOR . $fileName;
+        $fileToCheck = $this->getWorkingDirectory() . DIRECTORY_SEPARATOR . $fileName;
         $sourceDir   = realpath(__DIR__.'/../../../HeyDoc/Resources/templates/');
 
         if (! $this->fs->exists($fileToCheck)) {
